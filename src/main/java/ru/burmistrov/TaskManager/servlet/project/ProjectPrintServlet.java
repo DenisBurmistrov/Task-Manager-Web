@@ -1,6 +1,7 @@
 package ru.burmistrov.TaskManager.servlet.project;
 
 import org.jetbrains.annotations.NotNull;
+import ru.burmistrov.TaskManager.api.repository.IProjectRepository;
 import ru.burmistrov.TaskManager.loader.Bootstrap;
 import ru.burmistrov.TaskManager.repository.ProjectRepository;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 public class ProjectPrintServlet extends HttpServlet {
 
     @NotNull
-    private final ProjectRepository projectRepository = ProjectRepository.getInstance();
+    private final IProjectRepository projectRepository = ProjectRepository.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
