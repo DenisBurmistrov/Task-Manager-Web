@@ -37,7 +37,7 @@ public class ProjectUpdateServlet extends HttpServlet {
             Objects.requireNonNull(project).setName(req.getParameter("name"));
             project.setDescription(req.getParameter("description"));
             project.setDateEnd(DateUtil.parseString(req.getParameter("dateEnd")));
-            projectRepository.persist(project);
+            projectRepository.merge(project);
             resp.sendRedirect("/home");
         }
         catch (ParseException | IOException e) {
