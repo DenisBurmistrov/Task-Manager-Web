@@ -2,11 +2,26 @@
 <%@ page import = "ru.burmistrov.TaskManager.entity.Project" %>
 <%@ page import = "java.util.*" %>
 <html>
+<head>
+<style><%@include file="/WEB-INF/css/home.css"%></style>
+</head>
 <body>
-<h2>
+<table class="rwd-table">
+<th>Number</th><th>ID</th><th>Name</th><th>Description</th><th>DateBegin</th><th>DateEnd</th>
+<% int index = 1; %>
     <% for (Project project : (List<Project>) request.getAttribute("projects")) { %>
-        <p> <%= project.getName() %> <p>
+
+    <tr>
+        <td align="center"> <%= index %> </td>
+        <td align="left"> <%= project.getId() %> </td>
+        <td align="left"> <%= project.getName() %> </td>
+        <td align="left"> <%= project.getDescription() %> </td>
+        <td align="left"> <%= project.getDateBegin() %> </td>
+        <td align="left"> <%= project.getDateEnd() %> </td>
+    </tr>
+    <% index++; %>
     <% } %>
-</h2>
+    <div class="button_cont" align="center"><a class="example_a" href="createProject">Create Project</a></div>
+</table>
 </body>
 </html>

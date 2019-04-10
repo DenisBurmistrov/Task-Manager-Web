@@ -3,7 +3,6 @@ package ru.burmistrov.TaskManager.loader;
 import org.jetbrains.annotations.NotNull;
 import ru.burmistrov.TaskManager.entity.Project;
 import ru.burmistrov.TaskManager.entity.Task;
-import ru.burmistrov.TaskManager.entity.enumirated.Status;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -33,10 +32,10 @@ public class Bootstrap {
     }
 
     private static void initProjectsAndTasks(){
-        Project project1 = new Project("Первое имя", "Первое описание", new Date(), Status.COMPLETE);
-        Project project2 = new Project("Второе имя", "Второе описание", new Date(), Status.IN_PROCESS);
-        Task task1 = new Task(project1.getId() ,"Первое имя", "Первое описание", new Date(), Status.COMPLETE);
-        Task task2 = new Task(project2.getId() ,"Второе имя", "Второе описание", new Date(), Status.IN_PROCESS);
+        Project project1 = new Project("Первое имя", "Первое описание", new Date());
+        Project project2 = new Project("Второе имя", "Второе описание", new Date());
+        Task task1 = new Task(project1.getId() ,"Первое имя", "Первое описание", new Date());
+        Task task2 = new Task(project2.getId() ,"Второе имя", "Второе описание", new Date());
 
         projects.put(project1.getId(), project1);
         projects.put(project2.getId(), project2);

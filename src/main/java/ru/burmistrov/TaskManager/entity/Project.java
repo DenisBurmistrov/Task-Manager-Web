@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.burmistrov.TaskManager.entity.enumirated.Status;
 
 import java.util.Date;
 import java.util.UUID;
@@ -30,19 +29,14 @@ public final class Project {
     @Nullable
     private Date dateEnd;
 
-    @Nullable
-    private Status status;
-
-    public Project(@Nullable final String name, @Nullable final String description, @Nullable final Date dateEnd, @Nullable final Status status) {
+    public Project(@Nullable final String name, @Nullable final String description, @Nullable final Date dateEnd) {
         this.name = name;
         this.description = description;
         this.dateEnd = dateEnd;
-        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "ID: " + getId() + "; Название: " + name + "; Описание: " + description + "; Дата создания: " + dateBegin
-                + "; Статус: " + status;
+        return "ID: " + getId() + "; Название: " + name + "; Описание: " + description + "; Дата создания: " + dateBegin;
     }
 }
