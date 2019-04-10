@@ -19,7 +19,7 @@ body{
 	bottom: -40px;
 	width: auto;
 	height: auto;
-	background-image: url(https://i.pinimg.com/originals/86/cc/bb/86ccbb5469e5192dbdc7c031ca45d0c2.gif);
+	background-image: url(http://hq-wallpapers.ru/wallpapers/10/hq-wallpapers_ru_abstraction3d_49540_1920x1080.jpg);
 	background-size: cover;
 	-webkit-filter: blur(5px);
 	z-index: 0;
@@ -41,7 +41,7 @@ body{
 .header{
 	position: absolute;
 	top: calc(50% - 35px);
-	left: calc(50% - 260px);
+	left: calc(50% - 270px);
 	z-index: 2;
 }
 

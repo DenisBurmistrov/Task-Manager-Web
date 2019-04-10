@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
 
 .rwd-table {
-  margin: 5em 35em;
+  margin: 5em 20em;
   min-width: 300px;
 }
 
@@ -55,7 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: #444;
-  background: url(https://i.pinimg.com/originals/86/cc/bb/86ccbb5469e5192dbdc7c031ca45d0c2.gif);
+  background: url(http://hq-wallpapers.ru/wallpapers/10/hq-wallpapers_ru_abstraction3d_49540_1920x1080.jpg);
 }
 
 h1 {

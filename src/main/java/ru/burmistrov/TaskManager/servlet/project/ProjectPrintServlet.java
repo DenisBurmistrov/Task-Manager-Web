@@ -19,8 +19,10 @@ public class ProjectPrintServlet extends HttpServlet {
     private final IProjectRepository projectRepository = ProjectRepository.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("projects", projectRepository.findAll());
         req.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(req, resp);
     }
+
+
 }
