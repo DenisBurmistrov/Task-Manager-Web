@@ -32,10 +32,10 @@ public class Bootstrap {
     }
 
     private static void initProjectsAndTasks(){
-        Project project1 = new Project("Первое имя", "Первое описание", new Date());
-        Project project2 = new Project("Второе имя", "Второе описание", new Date());
-        Task task1 = new Task(project1.getId() ,"Первое имя", "Первое описание", new Date());
-        Task task2 = new Task(project2.getId() ,"Второе имя", "Второе описание", new Date());
+        Project project1 = new Project("First Project", "First Description", new Date());
+        Project project2 = new Project("Second Project", "Second Description", new Date());
+        Task task1 = new Task(project1.getId() ,"First Task", "First Description", new Date());
+        Task task2 = new Task(project2.getId() ,"Second Task", "Second Description", new Date());
 
         projects.put(project1.getId(), project1);
         projects.put(project2.getId(), project2);

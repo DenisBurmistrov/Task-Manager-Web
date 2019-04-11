@@ -39,8 +39,14 @@ public class TaskRepository implements ITaskRepository {
 
     @NotNull
     @Override
-    public List<Task> findAll() {
-        return new LinkedList<>(tasks.values());
+    public List<Task> findAll(@NotNull final String projectId) {
+        @NotNull final List<Task> result = new LinkedList<>();
+        for (Task task : tasks.values()){
+            if(task.getId().equals(projectId)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 
     @Nullable

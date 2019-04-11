@@ -15,7 +15,7 @@ public interface ITaskRepository {
     void remove(@NotNull final String id);
 
     @NotNull
-    List<Task> findAll();
+    List<Task> findAll(@NotNull final String projectId);
 
     @Nullable
     Task findOne(@NotNull final String id);

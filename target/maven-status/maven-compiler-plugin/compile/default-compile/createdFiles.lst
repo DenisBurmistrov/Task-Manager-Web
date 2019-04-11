@@ -8,8 +8,8 @@ ru\burmistrov\TaskManager\entity\Task.class
 ru\burmistrov\TaskManager\servlet\project\ProjectUpdateServlet.class
 ru\burmistrov\TaskManager\servlet\project\ProjectCreateServlet.class
 ru\burmistrov\TaskManager\servlet\task\TaskRemoveServlet.class
-ru\burmistrov\TaskManager\entity\enumirated\Status.class
 ru\burmistrov\TaskManager\servlet\project\ProjectRemoveServlet.class
+ru\burmistrov\TaskManager\util\DateUtil.class
 ru\burmistrov\TaskManager\loader\Bootstrap.class
 ru\burmistrov\TaskManager\servlet\task\TaskUpdateServlet.class
 ru\burmistrov\TaskManager\servlet\task\TaskPrintServlet.class
