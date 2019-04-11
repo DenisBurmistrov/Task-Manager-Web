@@ -103,7 +103,7 @@ h1 {
     transition-delay: 0s;
   	  transition-duration: 0.4s;
   	  transition-property: all;
-    transition-timing-function: line;
+      transition-timing-function: line;
   }
 
 .example_a {

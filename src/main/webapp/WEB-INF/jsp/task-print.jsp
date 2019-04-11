@@ -11,7 +11,7 @@
 <table class="rwd-table">
 <th>Number</th><th>ID</th><th>Name</th><th>Description</th><th>DateBegin</th><th>DateEnd</th><th>Edit</th><th>Remove</th>
 <% int index = 1; %>
-    <% for (Task Task : (List<Task>) request.getAttribute("tasks")) { %>
+    <% for (Task task : (List<Task>) request.getAttribute("tasks")) { %>
 
     <tr>
         <td align="center"> <%= index %> </td>

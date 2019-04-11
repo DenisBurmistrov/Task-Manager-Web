@@ -12,7 +12,6 @@
 <th>Number</th><th>ID</th><th>Name</th><th>Description</th><th>DateBegin</th><th>DateEnd</th><th>Edit</th><th>Remove</th><th>Tasks</th>
 <% int index = 1; %>
     <% for (Project project : (List<Project>) request.getAttribute("projects")) { %>
-
     <tr>
         <td align="center"> <%= index %> </td>
         <td align="left" > <%= project.getId() %>  </td>
