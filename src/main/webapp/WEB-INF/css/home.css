@@ -4,6 +4,7 @@
 .rwd-table {
   margin: 5em 20em;
   min-width: 300px;
+
 }
 
 .rwd-table tr {
@@ -95,7 +96,6 @@ h1 {
 .rwd-table td:hover {
   background-color: #987654;
   color: #403E10;
-  font-weight: bold;
 
   box-shadow: #654321 -1px 1px, #654321 -2px 2px, #654321 -3px 3px, #654321 -4px 4px, #654321 -5px 5px, #654321 -6px 6px;
     transform: translate3d(6px, -6px, 0);

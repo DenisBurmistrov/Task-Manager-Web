@@ -10,6 +10,7 @@ import ru.burmistrov.TaskManager.loader.Bootstrap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class TaskRepository implements ITaskRepository {
 
@@ -42,7 +43,7 @@ public class TaskRepository implements ITaskRepository {
     public List<Task> findAll(@NotNull final String projectId) {
         @NotNull final List<Task> result = new LinkedList<>();
         for (Task task : tasks.values()){
-            if(task.getId().equals(projectId)) {
+            if(Objects.requireNonNull(task.getProjectId()).equals(projectId)) {
                 result.add(task);
             }
         }

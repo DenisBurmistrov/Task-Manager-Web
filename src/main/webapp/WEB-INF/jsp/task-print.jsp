@@ -33,7 +33,10 @@
     </tr>
     <% index++; %>
     <% } %>
-    <div class="button_cont" align="center"><a class="example_a" href="project-create">Create Project</a></div>
+    <div class="button_cont" align="center">
+        <a class="example_a" href="task-create?id=<%=request.getParameter("id")%>">Create Task</a>
+    </div>
+    </form>
 </table>
 </body>
 </html>
