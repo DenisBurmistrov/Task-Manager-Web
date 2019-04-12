@@ -4,9 +4,8 @@
 <style><%@include file="/WEB-INF/css/login.css"%></style>
 </head>
 <body>
-<form action="/login" method="POST">
-  <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2>
-  <button class="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
+<form action="/signUp" method="POST">
+  <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> SignUp</h2>
   <span class="entypo-user inputUserIcon">
      <i class="fa fa-user"></i>
    </span>
@@ -15,11 +14,12 @@
      <i class="fa fa-key"></i>
    </span>
   <input type="password" class="pass" name="password" placeholder="password" autocomplete="off"/>
-
-
-</form>
-<form action="/signUp" method="GET"
+  <input type="text" class="pass" name="firstName" placeholder="First name" autocomplete="off"/>
+  <input type="text" class="pass" name="lastName" placeholder="Last Name" autocomplete="off"/>
+  <input type="text" class="pass" name="middleName" placeholder="Middle Name" autocomplete="off"/>
+  <input type="text" class="pass" name="email" placeholder="Email" autocomplete="off"/>
 <div>
+
   <input class="signUp" type="submit" value="Sign up">
   </div>
   </form>

@@ -1,4 +1,4 @@
-package ru.burmistrov.TaskManager.servlet.login;
+package ru.burmistrov.TaskManager.servlet.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.burmistrov.TaskManager.api.repository.IUserRepository;
@@ -32,6 +32,9 @@ public class UserLoginServlet extends HttpServlet {
           if(user != null) {
               req.getSession().setAttribute("userId", user.getId());
               resp.sendRedirect("/home");
+          }
+          else {
+              resp.sendRedirect("/login");
           }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

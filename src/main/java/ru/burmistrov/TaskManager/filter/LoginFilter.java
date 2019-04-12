@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/", "/home", "/project-create", "/project-update", "/task-create", "/task-update", "/task-remove", "/project-remove", "/tasks", ""})
-public class loginFilter implements Filter {
+public class LoginFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -19,7 +19,7 @@ public class loginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-        if (httpServletRequest.getSession().getAttribute("userId") == null) {
+        if (httpServletRequest.getSession() != null && httpServletRequest.getSession().getAttribute("userId") == null) {
             httpServletResponse.sendRedirect("/login");
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

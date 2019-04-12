@@ -10,7 +10,7 @@ import java.util.List;
 public interface ITaskRepository {
 
     @Nullable
-    Task persist(@NotNull final Task project);
+    Task persist(@NotNull final Task user);
 
     void remove(@NotNull final String id);
 

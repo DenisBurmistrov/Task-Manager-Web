@@ -27,7 +27,7 @@ public class UserRepository implements IUserRepository {
 
     @Nullable
     @Override
-    public User authentication(String login, String password){
+    public User authentication(@NotNull String login, @NotNull String password){
         for (User user : users.values()) {
             if(login.equals(user.getLogin()) && password.equals(user.getPassword()))
             return user;
@@ -39,5 +39,22 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findOne(@NotNull String id) {
         return users.get(id);
+    }
+
+    @Nullable
+    @Override
+    public User findOneByLogin(@NotNull String login) {
+        for (User user : users.values()) {
+            if(login.equals(user.getLogin()))
+                return user;
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public User persist(@NotNull User user) {
+        users.put(user.getId(), user);
+        return user;
     }
 }

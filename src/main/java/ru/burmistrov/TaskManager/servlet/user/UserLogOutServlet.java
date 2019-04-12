@@ -1,4 +1,4 @@
-package ru.burmistrov.TaskManager.servlet.login;
+package ru.burmistrov.TaskManager.servlet.user;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
