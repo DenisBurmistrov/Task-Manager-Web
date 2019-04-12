@@ -14,12 +14,12 @@ import java.util.Objects;
 
 public class TaskRepository implements ITaskRepository {
 
-    @Nullable private static TaskRepository instance;
+    @Nullable private static ITaskRepository instance;
 
     @NotNull private Map<String, Task> tasks = Bootstrap.getTasks();
 
     @NotNull
-    public static TaskRepository getInstance() {
+    public static ITaskRepository getInstance() {
         if(instance == null) {
             instance = new TaskRepository();
         }

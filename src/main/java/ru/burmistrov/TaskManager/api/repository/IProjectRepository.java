@@ -15,7 +15,7 @@ public interface IProjectRepository{
     void remove(@NotNull final String id);
 
     @NotNull
-    List<Project> findAll();
+    List<Project> findAll(String userId);
 
     @Nullable
     Project findOne(@NotNull final String id);

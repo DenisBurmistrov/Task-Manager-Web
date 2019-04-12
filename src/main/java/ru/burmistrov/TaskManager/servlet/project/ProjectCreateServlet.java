@@ -2,6 +2,7 @@ package ru.burmistrov.TaskManager.servlet.project;
 
 
 import org.jetbrains.annotations.NotNull;
+import ru.burmistrov.TaskManager.api.repository.IProjectRepository;
 import ru.burmistrov.TaskManager.entity.Project;
 import ru.burmistrov.TaskManager.repository.ProjectRepository;
 import ru.burmistrov.TaskManager.util.DateUtil;
@@ -18,7 +19,7 @@ import java.text.ParseException;
 public class ProjectCreateServlet extends HttpServlet {
 
     @NotNull
-    private final ProjectRepository projectRepository = ProjectRepository.getInstance();
+    private final IProjectRepository projectRepository = ProjectRepository.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,6 +33,7 @@ public class ProjectCreateServlet extends HttpServlet {
             project.setName(req.getParameter("name"));
             project.setDescription(req.getParameter("description"));
             project.setDateEnd(DateUtil.parseString(req.getParameter("dateEnd")));
+            project.setUserId((String) req.getSession().getAttribute("userId"));
             projectRepository.persist(project);
             resp.sendRedirect("/home");
         }

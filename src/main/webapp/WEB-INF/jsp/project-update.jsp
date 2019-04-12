@@ -22,5 +22,8 @@
 				    <input type="submit" value="Update">
 				</form>
 		</div>
+		<form action="/logout" method="GET">
+        		<input class="logout_button" type="submit" value="Logout">
+        		</form>
 </body>
 </html>

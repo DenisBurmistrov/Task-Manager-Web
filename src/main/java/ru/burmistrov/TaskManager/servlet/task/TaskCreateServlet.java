@@ -22,7 +22,7 @@ public class TaskCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("projectId", req.getParameter("id"));
+        req.setAttribute("userId", req.getParameter("id"));
         req.getRequestDispatcher("/WEB-INF/jsp/task-create.jsp").forward(req, resp);
     }
 
@@ -34,6 +34,7 @@ public class TaskCreateServlet extends HttpServlet {
             task.setName(req.getParameter("name"));
             task.setDescription(req.getParameter("description"));
             task.setDateEnd(DateUtil.parseString(req.getParameter("dateEnd")));
+            task.setUserId((String) req.getSession().getAttribute("userId"));
             taskRepository.persist(task);
             resp.sendRedirect("/tasks?id=" + req.getParameter("projectId"));
         } catch (ParseException e) {

@@ -14,12 +14,12 @@ import java.util.Map;
 public class ProjectRepository implements IProjectRepository {
 
     @Nullable
-    private static ProjectRepository instance;
+    private static IProjectRepository instance;
 
     @NotNull private Map<String, Project> projects = Bootstrap.getProjects();
 
     @NotNull
-    public static ProjectRepository getInstance() {
+    public static IProjectRepository getInstance() {
         if(instance == null) {
             instance = new ProjectRepository();
         }
@@ -42,8 +42,14 @@ public class ProjectRepository implements IProjectRepository {
 
     @NotNull
     @Override
-    public List<Project> findAll() {
-        return new LinkedList<>(projects.values());
+    public List<Project> findAll(String userId) {
+        List<Project> result = new LinkedList<>();
+        for(Project project : projects.values()) {
+            if(project.getUserId().equals(userId)) {
+                result.add(project);
+            }
+        }
+        return result;
     }
 
     @Nullable

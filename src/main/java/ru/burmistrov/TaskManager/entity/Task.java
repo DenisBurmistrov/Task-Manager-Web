@@ -32,12 +32,15 @@ public final class Task {
     @Nullable
     private Date dateEnd;
 
-    public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
-                @Nullable final Date dateEnd) {
+    @Nullable
+    private String userId;
+
+    public Task(@Nullable String projectId, @Nullable String name, @Nullable String description, @Nullable Date dateEnd, @Nullable String userId) {
         this.projectId = projectId;
         this.name = name;
         this.description = description;
         this.dateEnd = dateEnd;
+        this.userId = userId;
     }
 
     @Override

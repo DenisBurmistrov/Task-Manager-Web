@@ -41,6 +41,7 @@
     <div class="button_home" align="center">
                 <a class="example_b" href="home">Projects</a>
             </div>
+            <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
 
 
 </table>

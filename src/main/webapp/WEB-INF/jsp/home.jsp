@@ -39,6 +39,8 @@
     <% index++; %>
     <% } %>
     <div class="button_cont" align="center"><a class="example_a" href="project-create">Create Project</a></div>
+
+    <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
 </table>
 </body>
 </html>

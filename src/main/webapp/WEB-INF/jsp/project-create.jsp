@@ -5,7 +5,6 @@
 <style><%@include file="/WEB-INF/css/project-create.css"%></style>
 </head>
 <body>
-
 <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
@@ -19,5 +18,6 @@
 				    <input type="submit" value="Create">
 				</form>
 		</div>
+
 </body>
 </html>

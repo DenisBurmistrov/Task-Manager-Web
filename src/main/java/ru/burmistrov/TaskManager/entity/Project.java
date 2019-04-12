@@ -29,10 +29,14 @@ public final class Project {
     @Nullable
     private Date dateEnd;
 
-    public Project(@Nullable final String name, @Nullable final String description, @Nullable final Date dateEnd) {
+    @Nullable
+    private String userId;
+
+    public Project(@Nullable final String name, @Nullable final String description, @Nullable final Date dateEnd, @Nullable final String userId) {
         this.name = name;
         this.description = description;
         this.dateEnd = dateEnd;
+        this.userId = userId;
     }
 
     @Override
