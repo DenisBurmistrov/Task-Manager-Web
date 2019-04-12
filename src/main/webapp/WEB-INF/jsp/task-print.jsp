@@ -35,8 +35,14 @@
     <% } %>
     <div class="button_cont" align="center">
         <a class="example_a" href="task-create?id=<%=request.getParameter("id")%>">Create Task</a>
+        <br>
     </div>
-    </form>
+    <br>
+    <div class="button_home" align="center">
+                <a class="example_b" href="home">Projects</a>
+            </div>
+
+
 </table>
 </body>
 </html>

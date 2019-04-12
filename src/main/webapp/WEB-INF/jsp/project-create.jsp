@@ -13,9 +13,9 @@
 		</div>
 		<div class="form">
 		<form action="/project-create" method="POST">
-				<input type="text" placeholder="Name" name="name"/>
-				<input type="text" placeholder="Description" name="description"/>
-				<input type="text" placeholder="Date End (27.10.2021)" name="dateEnd"/>
+				<input type="text" placeholder="Name" name="name" autocomplete="off"/>
+				<input type="text" placeholder="Description" name="description" autocomplete="off"/>
+				<input type="text" placeholder="Date End (27.10.2021)" name="dateEnd" autocomplete="off"/>
 				    <input type="submit" value="Create">
 				</form>
 		</div>
