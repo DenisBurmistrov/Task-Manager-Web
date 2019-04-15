@@ -29,12 +29,13 @@ public class UserController {
     public String loginPost(@RequestParam final String login, @RequestParam final String password, Model model) {
         try {
             User user = userRepository.authentication(login, PasswordUtil.hashPassword(password));
+            System.out.println(user);
             if(user != null) {
                 model.addAttribute("userId", user.getId());
-                return "home";
+                return "redirect:home";
             }
             else {
-                return "login";
+                return "redirect:login";
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/signUp")
-    public String signUpGet(@RequestParam final String id) {
+    public String signUpGet(/*@RequestParam final String id*/) {
         return "signUp";
     }
 

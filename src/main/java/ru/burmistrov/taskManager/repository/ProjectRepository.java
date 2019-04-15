@@ -38,7 +38,7 @@ public class ProjectRepository implements IProjectRepository {
     public List<Project> findAll(String userId) {
         List<Project> result = new LinkedList<>();
         for(Project project : projects.values()) {
-            if(Objects.requireNonNull(project.getUserId()).equals(userId)) {
+            if(project.getUserId().equals(userId)) {
                 result.add(project);
             }
         }

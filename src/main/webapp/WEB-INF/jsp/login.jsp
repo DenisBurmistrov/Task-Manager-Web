@@ -18,7 +18,7 @@
 
 
 </form>
-<form action="/signUp" method="GET"
+<form action="/signUp" method="GET">
 <div>
   <input class="signUp" type="submit" value="Sign up">
   </div>

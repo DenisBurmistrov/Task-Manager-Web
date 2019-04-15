@@ -16,7 +16,7 @@ public class DateUtil {
         return dateEnd;
     }
 
-    public String parseDate(Date date) throws ParseException {
+    public static String parseDate(Date date) throws ParseException {
         @NotNull final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return simpleDateFormat.format(date);
     }

@@ -38,8 +38,9 @@ public class ProjectController {
             project.setName(name);
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
+            project.setUserId("1");
             projectRepository.persist(project);
-            return "home";
+            return "redirect:home";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -55,7 +56,7 @@ public class ProjectController {
     @GetMapping("/project-remove")
     public String removeProjectGet(@RequestParam final String id) {
         projectRepository.remove(id);
-        return "home";
+        return "redirect:home";
     }
 
     @GetMapping("/project-update")
@@ -75,7 +76,7 @@ public class ProjectController {
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
             projectRepository.merge(project);
-            return "home";
+            return "redirect:home";
         } catch (ParseException e) {
             e.printStackTrace();
         }

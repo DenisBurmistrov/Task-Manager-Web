@@ -27,7 +27,7 @@ public class TaskController {
 
     @GetMapping("/task-create")
     public String createTaskGet(@RequestParam final String id, Model model) {
-        model.addAttribute("userId", "1");
+        model.addAttribute("id", id);
         return "task-create";
     }
 
@@ -42,8 +42,8 @@ public class TaskController {
             task.setDateEnd(dateUtil.parseString(dateEnd));
             task.setUserId("1");
             taskRepository.persist(task);
-            model.addAttribute("id", "1");
-            return "task-print";
+            model.addAttribute("id", id);
+            return "redirect:tasks";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,8 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String listTasksGet(@RequestParam final String id, Model model) {
-        model.addAttribute("tasks", taskRepository.findAll("1"));
+        model.addAttribute("tasks", taskRepository.findAll(id));
+        model.addAttribute("projectId", id);
         return "task-print";
     }
 
@@ -62,7 +63,7 @@ public class TaskController {
         Task task = taskRepository.findOne(id);
         taskRepository.remove(id);
         model.addAttribute("id", Objects.requireNonNull(task).getProjectId());
-        return "task-print";
+        return "redirect:tasks";
     }
 
     @GetMapping("/task-update")
@@ -82,9 +83,8 @@ public class TaskController {
             task.setDescription(description);
             task.setDateEnd(dateUtil.parseString(dateEnd));
             taskRepository.merge(task);
-            //resp.sendRedirect("/tasks?id=" + task.getProjectId());
-            model.addAttribute("id", "1");
-            return "tasks";
+            model.addAttribute("id", task.getProjectId());
+            return "redirect:tasks";
         } catch (ParseException e) {
             e.printStackTrace();
         }

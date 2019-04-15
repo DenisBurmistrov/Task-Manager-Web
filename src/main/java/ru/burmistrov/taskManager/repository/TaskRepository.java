@@ -19,7 +19,7 @@ public class TaskRepository implements ITaskRepository {
     @Autowired
     private Bootstrap bootstrap;
 
-    @NotNull private Map<String, Task> tasks = Bootstrap.getTasks();
+    @NotNull private Map<String, Task> tasks = bootstrap.getTasks();
 
     @Nullable
     @Override
