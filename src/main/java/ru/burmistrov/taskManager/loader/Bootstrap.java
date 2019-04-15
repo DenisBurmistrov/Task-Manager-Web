@@ -1,15 +1,18 @@
 package ru.burmistrov.taskManager.loader;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.entity.User;
 
+import javax.annotation.PostConstruct;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Component
 public class Bootstrap {
 
     @NotNull static private final Map<String, Project> projects = new LinkedHashMap<>();
@@ -21,29 +24,25 @@ public class Bootstrap {
     private Bootstrap() {
     }
 
+    @NotNull
     public static Map<String, Project> getProjects(){
-        if(projects.size() == 0) {
-            initProjectsAndTasksAndUsers();
-        }
         return projects;
     }
 
+    @NotNull
     public static Map<String, Task> getTasks(){
-        if(tasks.size() == 0) {
-            initProjectsAndTasksAndUsers();
-        }
         return tasks;
     }
 
+    @NotNull
     public static Map<String, User> getUsers(){
-        if(users.size() == 0) {
-            initProjectsAndTasksAndUsers();
-        }
         return users;
     }
 
-    private static void initProjectsAndTasksAndUsers(){
+    @PostConstruct
+    private void initProjectsAndTasksAndUsers(){
         User admin = new User("admin", "admin", "admin", "admin", "admin@admin");
+        admin.setId("1");
         User user = new User("user", "user", "user", "user", "user@user");
         try {
             admin.setHashPassword("admin");

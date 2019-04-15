@@ -2,6 +2,8 @@ package ru.burmistrov.taskManager.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.burmistrov.taskManager.api.repository.ITaskRepository;
 import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.loader.Bootstrap;
@@ -11,19 +13,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Repository
 public class TaskRepository implements ITaskRepository {
 
-    @Nullable private static ITaskRepository instance;
+    @Autowired
+    private Bootstrap bootstrap;
 
     @NotNull private Map<String, Task> tasks = Bootstrap.getTasks();
-
-    @NotNull
-    public static ITaskRepository getInstance() {
-        if(instance == null) {
-            instance = new TaskRepository();
-        }
-        return instance;
-    }
 
     @Nullable
     @Override

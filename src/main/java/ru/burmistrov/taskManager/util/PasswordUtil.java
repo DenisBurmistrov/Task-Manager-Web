@@ -1,9 +1,11 @@
 package ru.burmistrov.taskManager.util;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.security.NoSuchAlgorithmException;
 
+@Component
 public class PasswordUtil {
 
     public static String hashPassword(@NotNull final String md5) throws NoSuchAlgorithmException {

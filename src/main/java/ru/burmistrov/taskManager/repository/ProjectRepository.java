@@ -2,28 +2,22 @@ package ru.burmistrov.taskManager.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.burmistrov.taskManager.api.repository.IProjectRepository;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.loader.Bootstrap;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Repository
 public class ProjectRepository implements IProjectRepository {
 
-    @Nullable
-    private static IProjectRepository instance;
+    @Autowired
+    private Bootstrap bootstrap;
 
-    @NotNull private Map<String, Project> projects = Bootstrap.getProjects();
-
-    @NotNull
-    public static IProjectRepository getInstance() {
-        if(instance == null) {
-            instance = new ProjectRepository();
-        }
-        return instance;
-    }
+    @NotNull static private final Map<String, Project> projects = Bootstrap.getProjects();
 
     private ProjectRepository() {
     }
@@ -44,7 +38,7 @@ public class ProjectRepository implements IProjectRepository {
     public List<Project> findAll(String userId) {
         List<Project> result = new LinkedList<>();
         for(Project project : projects.values()) {
-            if(project.getUserId().equals(userId)) {
+            if(Objects.requireNonNull(project.getUserId()).equals(userId)) {
                 result.add(project);
             }
         }
