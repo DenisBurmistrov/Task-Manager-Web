@@ -1,6 +1,8 @@
 package ru.burmistrov.taskManager.loader;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.entity.Task;
@@ -16,46 +18,52 @@ import java.util.Map;
 @Component
 public class Bootstrap {
 
-    @NotNull static private final Map<String, Project> projects = new LinkedHashMap<>();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    @NotNull static private final Map<String, Task> tasks = new LinkedHashMap<>();
+    @NotNull
+    static private final Map<String, Project> projects = new LinkedHashMap<>();
 
-    @NotNull static private final Map<String, User> users = new LinkedHashMap<>();
+    @NotNull
+    static private final Map<String, Task> tasks = new LinkedHashMap<>();
+
+    @NotNull
+    static private final Map<String, User> users = new LinkedHashMap<>();
 
     private Bootstrap() {
     }
 
     @NotNull
-    public static Map<String, Project> getProjects(){
+    public static Map<String, Project> getProjects() {
         return projects;
     }
 
     @NotNull
-    public static Map<String, Task> getTasks(){
+    public static Map<String, Task> getTasks() {
         return tasks;
     }
 
     @NotNull
-    public static Map<String, User> getUsers(){
+    public static Map<String, User> getUsers() {
         return users;
     }
 
     @PostConstruct
-    private void initProjectsAndTasksAndUsers(){
+    private void initProjectsAndTasksAndUsers() {
         User admin = new User("admin", "admin", "admin", "admin", "admin@admin");
         admin.getRoles().add(Role.ADMINISTRATOR);
         admin.setId("1");
+
         User user = new User("user", "user", "user", "user", "user@user");
-        try {
-            admin.setHashPassword("admin");
-            user.setHashPassword("user");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+
+        admin.setPassword(passwordEncoder.encode("admin"));
+        user.setPassword(passwordEncoder.encode("user"));
+
         Project project1 = new Project("First Project", "First Description", new Date(), admin.getId());
         Project project2 = new Project("Second Project", "Second Description", new Date(), user.getId());
-        Task task1 = new Task(project1.getId() ,"First Task", "First Description", new Date(), admin.getId());
-        Task task2 = new Task(project2.getId() ,"Second Task", "Second Description", new Date(), user.getId());
+
+        Task task1 = new Task(project1.getId(), "First Task", "First Description", new Date(), admin.getId());
+        Task task2 = new Task(project2.getId(), "Second Task", "Second Description", new Date(), user.getId());
 
         users.put(admin.getId(), admin);
         users.put(user.getId(), user);

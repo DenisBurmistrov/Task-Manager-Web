@@ -27,6 +27,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("ru.burmistrov.taskManager")
 @EnableWebSecurity
 @EnableGlobalAuthentication
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
@@ -51,17 +52,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/").permitAll()
+                .antMatchers("/signUp").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login").defaultSuccessUrl("/home", true)
+                .permitAll()
                 .and()
-                    .logout().logoutSuccessUrl("/login")
-                    .permitAll()
+                .logout().logoutSuccessUrl("/login")
+                .permitAll()
                 .and()
-                    .csrf().disable();
+                .csrf().disable();
     }
 
     // Позволяет видеть все ресурсы в папке jsp, такие как картинки, стили и т.п.

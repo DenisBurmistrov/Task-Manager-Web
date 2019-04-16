@@ -5,11 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
-import ru.burmistrov.taskManager.util.PasswordUtil;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -51,15 +48,10 @@ public final class User {
         this.lastName = lastName;
         this.login = login;
         this.email = email;
-        roles.add(Role.COMMON_USER);
-    }
-
-    public void setHashPassword(@NotNull final String password) throws NoSuchAlgorithmException {
-        this.password = PasswordUtil.hashPassword(password);
+        roles.add(Role.COMMON);
     }
 
     public void setPassword(@Nullable String password) {
         this.password = password;
     }
-
 }
