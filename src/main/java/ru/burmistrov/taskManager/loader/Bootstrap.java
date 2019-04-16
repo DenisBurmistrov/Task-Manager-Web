@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.entity.User;
+import ru.burmistrov.taskManager.entity.enumerated.Role;
 
 import javax.annotation.PostConstruct;
 import java.security.NoSuchAlgorithmException;
@@ -42,6 +43,7 @@ public class Bootstrap {
     @PostConstruct
     private void initProjectsAndTasksAndUsers(){
         User admin = new User("admin", "admin", "admin", "admin", "admin@admin");
+        admin.getRoles().add(Role.ADMINISTRATOR);
         admin.setId("1");
         User user = new User("user", "user", "user", "user", "user@user");
         try {

@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private IUserRepository userRepository;
 
-    @GetMapping("/login")
+   /* @GetMapping("/login")
     public String loginGet() {
         return "login";
     }
@@ -41,7 +41,7 @@ public class UserController {
             e.printStackTrace();
         }
         return "error";
-    }
+    }*/
 
     @GetMapping("/logout")
     public String listTasksGet(@RequestParam final String id, Model model) {

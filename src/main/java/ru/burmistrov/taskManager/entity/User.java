@@ -6,9 +6,12 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.burmistrov.taskManager.entity.enumerated.Role;
 import ru.burmistrov.taskManager.util.PasswordUtil;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -37,12 +40,18 @@ public final class User {
     @Nullable
     private String email;
 
-    public User(@Nullable String firstName, @Nullable String middleName, @Nullable String lastName, @Nullable String login, @Nullable String email) {
+    @NotNull
+    private List<Role> roles = new ArrayList<>();
+
+    public User(@Nullable final String firstName, @Nullable final String middleName,
+                @Nullable final String lastName, @Nullable final String login,
+                @Nullable final String email) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.login = login;
         this.email = email;
+        roles.add(Role.COMMON_USER);
     }
 
     public void setHashPassword(@NotNull final String password) throws NoSuchAlgorithmException {

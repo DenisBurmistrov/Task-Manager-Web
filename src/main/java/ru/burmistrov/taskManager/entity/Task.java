@@ -35,7 +35,8 @@ public final class Task {
     @Nullable
     private String userId;
 
-    public Task(@Nullable String projectId, @Nullable String name, @Nullable String description, @Nullable Date dateEnd, @Nullable String userId) {
+    public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
+                @Nullable final Date dateEnd, @Nullable final String userId) {
         this.projectId = projectId;
         this.name = name;
         this.description = description;
@@ -45,7 +46,7 @@ public final class Task {
 
     @Override
     public String toString() {
-        return "ID: " + getId() +
+        return "ID: " + id +
                 "; Название: " + name +
                 "; Описание: " + description +
                 "; ID проекта: " + projectId;
