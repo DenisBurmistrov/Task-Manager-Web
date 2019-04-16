@@ -9,6 +9,7 @@ import ru.burmistrov.taskManager.entity.User;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 import ru.burmistrov.taskManager.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,8 +26,11 @@ public class UserDetailsServiceBean implements UserDetailsService {
         org.springframework.security.core.userdetails.User.UserBuilder builder = null;
         builder = org.springframework.security.core.userdetails.User.withUsername(username);
         builder.password(Objects.requireNonNull(user.getPassword()));
-        final List<Role> userRoles = user.getRoleType();
-        return null;
+        final List<Role> userRoles = user.getRoles();
+        final List<String> roles = new ArrayList<>();
+        for (Role role: userRoles) roles.add(role.toString());
+        builder.roles(roles.toArray(new String[]{}));
+        return builder.build();
     }
 
     private User findByLogin(String username) {

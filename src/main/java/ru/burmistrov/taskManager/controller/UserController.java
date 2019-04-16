@@ -43,11 +43,11 @@ public class UserController {
         return "error";
     }*/
 
-    @GetMapping("/logout")
+   /* @GetMapping("/logout")
     public String listTasksGet(@RequestParam final String id, Model model) {
         model.addAttribute("userId", null);
         return "login";
-    }
+    }*/
 
     @GetMapping("/signUp")
     public String signUpGet(/*@RequestParam final String id*/) {
@@ -67,7 +67,7 @@ public class UserController {
                 user.setMiddleName(middleName);
                 user.setEmail(email);
                 userRepository.persist(user);
-                return "login";
+                return "redirect:login";
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

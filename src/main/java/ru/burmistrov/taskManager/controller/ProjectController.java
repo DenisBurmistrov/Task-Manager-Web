@@ -1,6 +1,7 @@
 package ru.burmistrov.taskManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +28,13 @@ public class ProjectController {
     private DateUtil dateUtil;
 
     @GetMapping("/project-create")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String createProjectGet() {
         return "project-create";
     }
 
     @PostMapping("/project-create")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String createProjectPost(@RequestParam final String name, @RequestParam final String description, @RequestParam final String dateEnd) {
         try {
             Project project = new Project();
@@ -48,18 +51,21 @@ public class ProjectController {
     }
 
     @GetMapping("/home")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String listProjectsGet(Model model) {
         model.addAttribute("projects", projectRepository.findAll("1"));
         return "home";
     }
 
     @GetMapping("/project-remove")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String removeProjectGet(@RequestParam final String id) {
         projectRepository.remove(id);
         return "redirect:home";
     }
 
     @GetMapping("/project-update")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String updateProjectGet(@RequestParam final String id, Model model) {
         Project project = projectRepository.findOne(id);
         model.addAttribute("project", project);
@@ -68,6 +74,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project-update")
+    @PreAuthorize("hasRole('ADMINISTRATIR')")
     public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd) {
         try {

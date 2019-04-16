@@ -19,7 +19,7 @@ public class Initializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 
         // Регистрируем в контексте конфигурационный класс, который мы создадим ниже
-        ctx.register(WebAppConfig.class);
+        ctx.register(WebSecurityConfig.class);
         servletContext.addListener(new ContextLoaderListener(ctx));
 
         ctx.setServletContext(servletContext);
