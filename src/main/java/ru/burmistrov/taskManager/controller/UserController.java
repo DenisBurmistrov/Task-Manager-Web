@@ -38,9 +38,8 @@ public class UserController {
                 user.setMiddleName(middleName);
                 user.setEmail(email);
                 userRepository.persist(user);
-                return "redirect:login";
         }
-        return null;
+        return "redirect:login";
     }
 }
 

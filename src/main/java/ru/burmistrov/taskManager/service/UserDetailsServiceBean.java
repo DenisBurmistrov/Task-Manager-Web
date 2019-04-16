@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.User;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 import ru.burmistrov.taskManager.repository.UserRepository;
@@ -22,15 +23,12 @@ public class UserDetailsServiceBean implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = findByLogin(username);
-        if(user == null) throw new UsernameNotFoundException("User not found");
-        org.springframework.security.core.userdetails.User.UserBuilder builder = null;
-        builder = org.springframework.security.core.userdetails.User.withUsername(username);
-        builder.password(Objects.requireNonNull(user.getPassword()));
-        final List<Role> userRoles = user.getRoles();
-        final List<String> roles = new ArrayList<>();
-        for (Role role: userRoles) roles.add(role.toString());
-        builder.roles(roles.toArray(new String[]{}));
-        return builder.build();
+        if (user == null) throw new UsernameNotFoundException("User not found");
+
+        CustomUser customUser = new CustomUser
+                (username, Objects.requireNonNull(user.getPassword()), user.getRoles());
+        customUser.setUser(user);
+        return customUser;
     }
 
     private User findByLogin(String username) {

@@ -1,6 +1,14 @@
 package ru.burmistrov.taskManager.entity.enumerated;
 
-public enum Role {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
+
     ADMINISTRATOR,
-    COMMON
+    COMMON;
+
+    @Override
+    public String getAuthority() {
+        return this.toString();
+    }
 }

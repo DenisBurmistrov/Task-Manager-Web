@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 
 import java.util.ArrayList;

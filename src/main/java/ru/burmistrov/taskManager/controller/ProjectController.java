@@ -2,6 +2,7 @@ package ru.burmistrov.taskManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import ru.burmistrov.taskManager.util.DateUtil;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.Objects;
 
@@ -52,7 +54,9 @@ public class ProjectController {
 
     @GetMapping("/home")
     @PreAuthorize("hasRole('COMMON')")
-    public String listProjectsGet(Model model) {
+    public String listProjectsGet(Model model, Principal principal) {
+        System.out.println(principal.getName());
+        System.out.println(principal);
         model.addAttribute("projects", projectRepository.findAll("1"));
         return "home";
     }
