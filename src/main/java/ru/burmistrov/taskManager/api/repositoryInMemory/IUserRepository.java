@@ -2,6 +2,7 @@ package ru.burmistrov.taskManager.api.repositoryInMemory;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Repository;
 import ru.burmistrov.taskManager.entity.User;
 
 public interface IUserRepository {

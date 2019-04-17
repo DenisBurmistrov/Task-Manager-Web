@@ -24,7 +24,7 @@ public class UserRepository implements IUserRepository {
     public User authentication(@NotNull String login, @NotNull String password){
         for (User user : users.values()) {
             if(login.equals(user.getLogin()) && password.equals(user.getPassword()))
-            return user;
+                return user;
         }
         return null;
     }

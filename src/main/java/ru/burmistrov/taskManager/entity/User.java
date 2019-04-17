@@ -48,11 +48,11 @@ public final class User {
         this.lastName = lastName;
         this.login = login;
         this.email = email;
-        roles.add(Role.COMMON);
+        roles.add(Role.COMMON_USER);
     }
 
     public User() {
-        roles.add(Role.COMMON);
+        roles.add(Role.COMMON_USER);
     }
 
     public void setPassword(@Nullable String password) {

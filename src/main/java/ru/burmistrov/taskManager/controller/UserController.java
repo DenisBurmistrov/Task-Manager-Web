@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.burmistrov.taskManager.api.repositoryInMemory.IUserRepository;
 import ru.burmistrov.taskManager.entity.User;
-
 @Controller
 public class UserController {
 
