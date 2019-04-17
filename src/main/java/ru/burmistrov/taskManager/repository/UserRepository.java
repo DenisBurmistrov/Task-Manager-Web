@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.burmistrov.taskManager.api.repository.IUserRepository;
+import ru.burmistrov.taskManager.api.repositoryInMemory.IUserRepository;
 import ru.burmistrov.taskManager.entity.User;
 import ru.burmistrov.taskManager.loader.Bootstrap;
 

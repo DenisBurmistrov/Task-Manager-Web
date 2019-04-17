@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.burmistrov.taskManager.api.repository.IUserRepository;
+import ru.burmistrov.taskManager.api.repositoryInMemory.IUserRepository;
 import ru.burmistrov.taskManager.entity.User;
-
-import java.security.NoSuchAlgorithmException;
 
 @Controller
 public class UserController {

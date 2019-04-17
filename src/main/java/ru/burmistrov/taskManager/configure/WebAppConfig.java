@@ -43,8 +43,8 @@ import java.util.Properties;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories("ru.burmistrov.taskManager.api.repository")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+@EnableJpaRepositories("ru.burmistrov.taskManager.repository")
+public class WebAppConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -106,10 +106,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         final DriverManagerDataSource dataSource =
                 new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("application.driver")));
-        dataSource.setUrl(env.getProperty("application.url"));
-        dataSource.setUsername(env.getProperty("application.user"));
-        dataSource.setPassword(env.getProperty("application.password"));
+        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("driverDB")));
+        dataSource.setUrl(env.getProperty("urlDB"));
+        dataSource.setUsername(env.getProperty("userDB"));
+        dataSource.setPassword(env.getProperty("passwordDB"));
         return dataSource;
     }
 
@@ -121,12 +121,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        factoryBean.setPackagesToScan("ru.evseenko");
+        factoryBean.setPackagesToScan("ru.burmistrov.taskManager");
 
         final Properties properties = new Properties();
-        properties.put("hibernate.show_sql", Objects.requireNonNull(env.getProperty("application.show_sql")));
-        properties.put("hibernate.hbm2ddl.auto", Objects.requireNonNull(env.getProperty("application.hbm2ddl.auto")));
-        properties.put("hibernate.dialect", Objects.requireNonNull(env.getProperty("application.dialect")));
+        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         factoryBean.setJpaProperties(properties);
 
         return factoryBean;

@@ -1,4 +1,4 @@
-package ru.burmistrov.taskManager.api.repository;
+package ru.burmistrov.taskManager.api.repositoryInMemory;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
