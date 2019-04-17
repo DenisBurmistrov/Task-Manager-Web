@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public final class User {
 
     @NotNull
@@ -49,6 +48,10 @@ public final class User {
         this.lastName = lastName;
         this.login = login;
         this.email = email;
+        roles.add(Role.COMMON);
+    }
+
+    public User() {
         roles.add(Role.COMMON);
     }
 

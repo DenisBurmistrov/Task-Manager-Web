@@ -30,13 +30,13 @@ public class ProjectController {
     private DateUtil dateUtil;
 
     @GetMapping("/project-create")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String createProjectGet() {
         return "project-create";
     }
 
     @PostMapping("/project-create")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String createProjectPost(@RequestParam final String name, @RequestParam final String description, @RequestParam final String dateEnd) {
         try {
             Project project = new Project();
@@ -53,7 +53,7 @@ public class ProjectController {
     }
 
     @GetMapping("/home")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String listProjectsGet(Model model, Principal principal) {
         System.out.println(principal.getName());
         System.out.println(principal);
@@ -62,14 +62,14 @@ public class ProjectController {
     }
 
     @GetMapping("/project-remove")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String removeProjectGet(@RequestParam final String id) {
         projectRepository.remove(id);
         return "redirect:home";
     }
 
     @GetMapping("/project-update")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String updateProjectGet(@RequestParam final String id, Model model) {
         Project project = projectRepository.findOne(id);
         model.addAttribute("project", project);
@@ -78,7 +78,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project-update")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd) {
         try {

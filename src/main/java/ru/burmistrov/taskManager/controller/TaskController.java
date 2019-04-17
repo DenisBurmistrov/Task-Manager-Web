@@ -27,14 +27,14 @@ public class TaskController {
     private DateUtil dateUtil;
 
     @GetMapping("/task-create")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String createTaskGet(@RequestParam final String id, Model model) {
         model.addAttribute("id", id);
         return "task-create";
     }
 
     @PostMapping("/task-create")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String createTaskPost(@RequestParam final String id, @RequestParam final String name,
                                     @RequestParam final String description, @RequestParam final String dateEnd, Model model) {
         try {
@@ -55,7 +55,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String listTasksGet(@RequestParam final String id, Model model) {
         model.addAttribute("tasks", taskRepository.findAll(id));
         model.addAttribute("projectId", id);
@@ -63,7 +63,7 @@ public class TaskController {
     }
 
     @GetMapping("/task-remove")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String removeTaskGet(@RequestParam final String id, Model model) {
         Task task = taskRepository.findOne(id);
         taskRepository.remove(id);
@@ -72,7 +72,7 @@ public class TaskController {
     }
 
     @GetMapping("/task-update")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String updatetaskGet(@RequestParam final String id, Model model) {
         Task task = taskRepository.findOne(id);
         model.addAttribute("task", task);
@@ -81,7 +81,7 @@ public class TaskController {
     }
 
     @PostMapping("/task-update")
-    @PreAuthorize("hasRole('COMMON')")
+    @PreAuthorize("hasAuthority('COMMON')")
     public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd, Model model) {
         try {
