@@ -2,6 +2,7 @@ package ru.burmistrov.taskManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.burmistrov.taskManager.api.repository.IProjectRepository;
+import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.util.DateUtil;
 
@@ -37,13 +39,16 @@ public class ProjectController {
 
     @PostMapping("/project-create")
     @PreAuthorize("hasAuthority('COMMON')")
-    public String createProjectPost(@RequestParam final String name, @RequestParam final String description, @RequestParam final String dateEnd) {
+    public String createProjectPost
+            (@RequestParam final String name, @RequestParam final String description,
+             @RequestParam final String dateEnd, Authentication authentication) {
         try {
+            CustomUser customUser = (CustomUser) authentication.getPrincipal();
             Project project = new Project();
             project.setName(name);
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
-            project.setUserId("1");
+            project.setUserId(Objects.requireNonNull(customUser.getUser()).getId());
             projectRepository.persist(project);
             return "redirect:home";
         } catch (ParseException e) {
@@ -54,10 +59,9 @@ public class ProjectController {
 
     @GetMapping("/home")
     @PreAuthorize("hasAuthority('COMMON')")
-    public String listProjectsGet(Model model, Principal principal) {
-        System.out.println(principal.getName());
-        System.out.println(principal);
-        model.addAttribute("projects", projectRepository.findAll("1"));
+    public String listProjectsGet(Model model, Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        model.addAttribute("projects", projectRepository.findAll(Objects.requireNonNull(customUser.getUser()).getId()));
         return "home";
     }
 

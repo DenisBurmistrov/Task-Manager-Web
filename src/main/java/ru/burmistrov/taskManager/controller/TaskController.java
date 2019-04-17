@@ -2,6 +2,8 @@ package ru.burmistrov.taskManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.burmistrov.taskManager.api.repository.ITaskRepository;
+import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.util.DateUtil;
@@ -36,14 +39,16 @@ public class TaskController {
     @PostMapping("/task-create")
     @PreAuthorize("hasAuthority('COMMON')")
     public String createTaskPost(@RequestParam final String id, @RequestParam final String name,
-                                    @RequestParam final String description, @RequestParam final String dateEnd, Model model) {
+                                    @RequestParam final String description, @RequestParam final String dateEnd,
+                                 Model model, Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
         try {
             Task task = new Task();
             task.setProjectId(id);
             task.setName(name);
             task.setDescription(description);
             task.setDateEnd(dateUtil.parseString(dateEnd));
-            task.setUserId("1");
+            task.setUserId(Objects.requireNonNull(customUser.getUser()).getId());
             taskRepository.persist(task);
             model.addAttribute("id", id);
             return "redirect:tasks";

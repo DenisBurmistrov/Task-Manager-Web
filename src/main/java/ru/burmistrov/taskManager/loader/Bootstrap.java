@@ -52,7 +52,6 @@ public class Bootstrap {
     private void initProjectsAndTasksAndUsers() {
         User admin = new User("admin", "admin", "admin", "admin", "admin@admin");
         admin.getRoles().add(Role.ADMINISTRATOR);
-        admin.setId("1");
 
         User user = new User("user", "user", "user", "user", "user@user");
 
