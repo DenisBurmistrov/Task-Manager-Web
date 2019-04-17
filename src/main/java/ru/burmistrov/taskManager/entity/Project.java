@@ -14,9 +14,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "app_project")
+@NoArgsConstructor
 public final class Project {
 
     @NotNull

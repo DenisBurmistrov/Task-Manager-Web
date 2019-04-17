@@ -13,9 +13,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "app_task")
+@NoArgsConstructor
 public final class Task {
 
     @NotNull

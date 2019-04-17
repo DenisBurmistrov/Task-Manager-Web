@@ -38,11 +38,12 @@ import java.util.Properties;
 @EnableWebMvc
 @Configuration
 @ComponentScan("ru.burmistrov.taskManager")
+@PropertySource("classpath:application.properties")
 @EnableWebSecurity
 @EnableGlobalAuthentication
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+
 @EnableJpaRepositories("ru.burmistrov.taskManager.repository")
 public class WebAppConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
