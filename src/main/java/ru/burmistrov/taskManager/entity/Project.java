@@ -3,8 +3,11 @@ package ru.burmistrov.taskManager.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.cache.annotation.Cacheable;
 import ru.burmistrov.taskManager.entity.enumerated.Status;
 
 import javax.persistence.*;
@@ -15,6 +18,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "app_project")
 @NoArgsConstructor
 public final class Project {
