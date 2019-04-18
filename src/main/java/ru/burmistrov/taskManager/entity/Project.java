@@ -7,7 +7,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.cache.annotation.Cacheable;
 import ru.burmistrov.taskManager.entity.enumerated.Status;
 
 import javax.persistence.*;
