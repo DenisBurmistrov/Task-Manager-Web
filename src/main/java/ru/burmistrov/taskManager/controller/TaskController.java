@@ -26,14 +26,14 @@ public class TaskController {
     private DateUtil dateUtil;
 
     @GetMapping("/task-create")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String createTaskGet(@RequestParam final String id, Model model) {
         model.addAttribute("id", id);
         return "task-create";
     }
 
     @PostMapping("/task-create")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String createTaskPost(@RequestParam final String id, @RequestParam final String name,
                                     @RequestParam final String description, @RequestParam final String dateEnd,
                                  Model model, Authentication authentication) {
@@ -56,7 +56,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String listTasksGet(@RequestParam final String id, Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         model.addAttribute("tasks", taskRepository.findAllByProjectId(Objects.requireNonNull(customUser.getUser()).getId(), id));
@@ -65,7 +65,7 @@ public class TaskController {
     }
 
     @GetMapping("/task-remove")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String removeTaskGet(@RequestParam final String id, Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Task task = taskRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
@@ -75,7 +75,7 @@ public class TaskController {
     }
 
     @GetMapping("/task-update")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String updatetaskGet(@RequestParam final String id, Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Task task = taskRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
@@ -85,7 +85,7 @@ public class TaskController {
     }
 
     @PostMapping("/task-update")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') and hasAuthority('ADMINISTRATOR')")
     public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd, Model model, Authentication authentication) {
         try {
