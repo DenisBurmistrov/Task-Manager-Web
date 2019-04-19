@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "app_user")
-public final class User {
+public final class User implements Serializable {
 
     @NotNull
     @Id

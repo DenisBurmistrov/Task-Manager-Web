@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import ru.burmistrov.taskManager.entity.enumerated.Status;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NoArgsConstructor
-public final class Task {
+public final class Task implements Serializable {
 
     @NotNull
     @Id

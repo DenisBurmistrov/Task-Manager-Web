@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.burmistrov.taskManager.entity.enumerated.Status;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "app_project")
 @NoArgsConstructor
-public final class Project {
+public final class Project implements Serializable {
 
     @NotNull
     @Id
