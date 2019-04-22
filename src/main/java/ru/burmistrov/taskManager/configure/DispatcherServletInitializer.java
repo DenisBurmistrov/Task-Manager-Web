@@ -9,7 +9,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         return new Class[] {
                 DataBaseConfig.class,
                 SpringSecurityConfig.class,
-                HazelcastHttpSessionConfig.class
         };
     }
 
