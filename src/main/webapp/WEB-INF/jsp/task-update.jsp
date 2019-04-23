@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
-<%@ page import = "ru.burmistrov.TaskManager.entity.Task" %>
-<%@ page import = "ru.burmistrov.TaskManager.util.DateUtil" %>
+<%@ page import="ru.burmistrov.taskManager.entity.Task" %>
+<%@ page import="ru.burmistrov.taskManager.util.DateUtil" %>
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/project-update.css"%></style>

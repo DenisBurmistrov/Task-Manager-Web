@@ -16,7 +16,7 @@
         <input type="text" placeholder="Name" name="name"  autocomplete="off"/>
         <input type="text" placeholder="Description" name="description"  autocomplete="off"/>
         <input type="text" placeholder="Date End (27.10.2021)" name="dateEnd"  autocomplete="off"/>
-        <input type="hidden" name="projectId" value=<%= request.getParameter("id")%>>
+        <input type="hidden" name="id" value=${id}>
         <input type="submit" value="Create">
     </form>
 </div>

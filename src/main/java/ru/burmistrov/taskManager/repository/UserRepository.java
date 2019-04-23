@@ -2,27 +2,22 @@ package ru.burmistrov.taskManager.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.burmistrov.taskManager.api.repository.IUserRepository;
 import ru.burmistrov.taskManager.entity.User;
 import ru.burmistrov.taskManager.loader.Bootstrap;
 
 import java.util.Map;
 
+@Repository
 public class UserRepository implements IUserRepository {
 
-    @Nullable
-    private static IUserRepository instance;
+    @Autowired
+    private Bootstrap bootstrap;
 
     @NotNull
     private Map<String, User> users = Bootstrap.getUsers();
-
-    @NotNull
-    public static IUserRepository getInstance() {
-        if(instance == null) {
-            instance = new UserRepository();
-        }
-        return instance;
-    }
 
     @Nullable
     @Override

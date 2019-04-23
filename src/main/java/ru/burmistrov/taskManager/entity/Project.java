@@ -32,7 +32,8 @@ public final class Project {
     @Nullable
     private String userId;
 
-    public Project(@Nullable final String name, @Nullable final String description, @Nullable final Date dateEnd, @Nullable final String userId) {
+    public Project(@Nullable final String name, @Nullable final String description,
+                   @Nullable final Date dateEnd, @Nullable final String userId) {
         this.name = name;
         this.description = description;
         this.dateEnd = dateEnd;
@@ -41,6 +42,6 @@ public final class Project {
 
     @Override
     public String toString() {
-        return "ID: " + getId() + "; Название: " + name + "; Описание: " + description + "; Дата создания: " + dateBegin;
+        return "ID: " + id + "; Название: " + name + "; Описание: " + description + "; Дата создания: " + dateBegin;
     }
 }
