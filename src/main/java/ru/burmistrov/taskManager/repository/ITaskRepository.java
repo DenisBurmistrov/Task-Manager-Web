@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.burmistrov.taskManager.entity.Task;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository

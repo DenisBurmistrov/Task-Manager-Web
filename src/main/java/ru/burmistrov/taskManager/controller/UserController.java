@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.burmistrov.taskManager.entity.User;
+import ru.burmistrov.taskManager.entity.enumerated.Role;
 import ru.burmistrov.taskManager.repository.IUserRepository;
 
 @Controller
@@ -35,6 +36,7 @@ public class UserController {
                 user.setLastName(lastName);
                 user.setMiddleName(middleName);
                 user.setEmail(email);
+                user.setRole(Role.COMMON_USER);
                 userRepository.save(user);
         }
         return "redirect:login";

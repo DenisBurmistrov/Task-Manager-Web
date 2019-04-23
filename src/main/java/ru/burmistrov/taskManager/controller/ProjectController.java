@@ -13,7 +13,6 @@ import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.repository.IProjectRepository;
 import ru.burmistrov.taskManager.util.DateUtil;
 
-import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.Objects;
 
@@ -27,13 +26,13 @@ public class ProjectController {
     private DateUtil dateUtil;
 
     @GetMapping("/project-create")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String createProjectGet() {
         return "project-create";
     }
 
     @PostMapping("/project-create")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String createProjectPost
             (@RequestParam final String name, @RequestParam final String description,
              @RequestParam final String dateEnd, Authentication authentication) {
@@ -53,7 +52,7 @@ public class ProjectController {
     }
 
     @GetMapping("/home")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String listProjectsGet(Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         model.addAttribute("projects", projectRepository.findAll(Objects.requireNonNull(customUser.getUser()).getId()));
@@ -61,7 +60,7 @@ public class ProjectController {
     }
 
     @GetMapping("/project-remove")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String removeProjectGet(@RequestParam final String id, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Project project = projectRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
@@ -70,7 +69,7 @@ public class ProjectController {
     }
 
     @GetMapping("/project-update")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String updateProjectGet(@RequestParam final String id, Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Project project = projectRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
@@ -80,7 +79,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project-update")
-    @PreAuthorize("hasAuthority('COMMON_USER')")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd, Authentication authentication) {
         try {

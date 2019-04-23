@@ -3,11 +3,14 @@ package ru.burmistrov.taskManager.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.cache.annotation.Cacheable;
 import ru.burmistrov.taskManager.entity.enumerated.Status;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,8 +18,10 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "app_task")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NoArgsConstructor
-public final class Task {
+public final class Task implements Serializable {
 
     @NotNull
     @Id

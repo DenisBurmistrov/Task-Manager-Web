@@ -8,7 +8,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
                 DataBaseConfig.class,
-                SpringSecurityConfig.class
+                SpringSecurityConfig.class,
         };
     }
 

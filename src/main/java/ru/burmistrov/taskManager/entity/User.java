@@ -3,12 +3,15 @@ package ru.burmistrov.taskManager.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,8 +19,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "app_user")
-public final class User {
+public final class User implements Serializable {
 
     @NotNull
     @Id
@@ -51,9 +56,6 @@ public final class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
-    /*@NotNull
-    private List<Role> roles = new ArrayList<>();*/
 
     public User() {
     }
