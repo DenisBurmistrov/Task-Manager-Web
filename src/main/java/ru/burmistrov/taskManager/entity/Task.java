@@ -5,50 +5,53 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.burmistrov.taskManager.entity.enumerated.Status;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "app_task")
 @NoArgsConstructor
 public final class Task {
 
     @NotNull
+    @Id
     private String id = UUID.randomUUID().toString();
 
     @Nullable
+    @Column(name = "project_id")
     private String projectId;
 
     @Nullable
+    @Column(name = "name")
     private String name;
 
     @Nullable
+    @Column(name = "description")
     private String description;
 
     @NotNull
+    @Column(name = "dateBegin")
     private Date dateBegin = new Date();
 
     @Nullable
+    @Column(name = "dateEnd")
     private Date dateEnd;
 
     @Nullable
+    @Column(name = "user_id")
     private String userId;
 
-    public Task(@Nullable final String projectId, @Nullable final String name, @Nullable final String description,
-                @Nullable final Date dateEnd, @Nullable final String userId) {
-        this.projectId = projectId;
-        this.name = name;
-        this.description = description;
-        this.dateEnd = dateEnd;
-        this.userId = userId;
-    }
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
-    @Override
-    public String toString() {
-        return "ID: " + id +
-                "; Название: " + name +
-                "; Описание: " + description +
-                "; ID проекта: " + projectId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", insertable=false, updatable=false)
+    private Project project;
 }

@@ -8,51 +8,54 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "app_user")
 public final class User {
 
     @NotNull
+    @Id
     private String id = UUID.randomUUID().toString();
 
     @Nullable
+    @Column(name = "firstName")
     private String firstName;
 
     @Nullable
+    @Column(name = "middleName")
     private String middleName;
 
     @Nullable
+    @Column(name = "lastName")
     private String lastName;
 
     @Nullable
+    @Column(name = "login")
     private String login;
 
     @Nullable
+    @Column(name = "passwordHash")
     private String password;
 
     @Nullable
+    @Column(name = "email")
     private String email;
 
-    @NotNull
-    private List<Role> roles = new ArrayList<>();
+    @Nullable
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
-    public User(@Nullable final String firstName, @Nullable final String middleName,
-                @Nullable final String lastName, @Nullable final String login,
-                @Nullable final String email) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.login = login;
-        this.email = email;
-        roles.add(Role.COMMON);
-    }
+    /*@NotNull
+    private List<Role> roles = new ArrayList<>();*/
 
     public User() {
-        roles.add(Role.COMMON);
     }
 
     public void setPassword(@Nullable String password) {

@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.burmistrov.taskManager.api.repository.IUserRepository;
 import ru.burmistrov.taskManager.entity.User;
-
-import java.security.NoSuchAlgorithmException;
+import ru.burmistrov.taskManager.repository.IUserRepository;
 
 @Controller
 public class UserController {
@@ -37,7 +35,7 @@ public class UserController {
                 user.setLastName(lastName);
                 user.setMiddleName(middleName);
                 user.setEmail(email);
-                userRepository.persist(user);
+                userRepository.save(user);
         }
         return "redirect:login";
     }
