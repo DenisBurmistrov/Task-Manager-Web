@@ -1,8 +1,13 @@
 package ru.burmistrov.taskManager.controller;
 
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +18,19 @@ import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.repository.ITaskRepository;
 import ru.burmistrov.taskManager.util.DateUtil;
 
+import javax.annotation.ManagedBean;
 import java.text.ParseException;
 import java.util.Objects;
 
-@Controller
+@ManagedBean
+@Component
+@Getter
+@Setter
+@URLMappings(mappings = {
+        @URLMapping(id = "taskCreate", pattern = "/task-create", viewId = "/WEB-INF/views/task-create.xhtml"),
+        @URLMapping(id = "taskUpdate", pattern = "/task-update", viewId = "/WEB-INF/views/task-update.xhtml"),
+        @URLMapping(id = "tasks", pattern = "/tasks", viewId = "/WEB-INF/views/tasks.xhtml")
+})
 public class TaskController {
 
     @Autowired

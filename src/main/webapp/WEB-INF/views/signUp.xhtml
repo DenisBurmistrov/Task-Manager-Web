@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <h:outputStylesheet library="css" name="login.css"  />
+</h:head>
+<h:body>
+    <div id="container">
+        <h:form styleClass="signup">
+            <h:inputText type="text" styleClass="textIn" pt:placeholder="Login" value="#{userController.login}"/>
+            <h:inputText type="text" styleClass="textIn" pt:placeholder="Password" value="#{userSignInController.password}"/>
+            <h:commandButton value="Submit" styleClass="submit" action="#{userSignInController.signIn}"/>
+        </h:form>
+    </div>
+
+        <h2>
+            <h:panelGroup styleClass="entypo-login">
+                <h:outputText styleClass="fa fa-sign-in"></h:outputText>
+            </h:panelGroup> SignUp
+        </h2>
+        <h:panelGroup class="entypo-user inputUserIcon">
+            <h:outputText class="fa fa-user"></h:outputText>
+        </h:panelGroup>
+        <h:inputText type="text" class="user" name="login" placeholder="username"
+                     autocomplete="off" value="#{userController.login}"/>
+        <h:panelGroup class="entypo-key inputPassIcon">
+            <h:outputText class="fa fa-key"></h:outputText>
+        </h:panelGroup>
+        <h:inputText type="password" class="pass" name="password"
+                     placeholder="password" autocomplete="off" value="#{userController.password}"/>
+        <h:inputText type="text" class="pass" name="firstName" placeholder="First name"
+                     autocomplete="off" value="#{userController.firstName}"/>
+        <h:inputText type="text" class="pass" name="lastName" placeholder="Last Name"
+                     autocomplete="off" value="#{userController.lastName}"/>
+        <h:inputText type="text" class="pass" name="middleName" placeholder="Middle Name"
+                     autocomplete="off" value="#{userController.middleName}"/>
+        <h:inputText type="text" class="pass" name="email" placeholder="Email"
+                     autocomplete="off" value="#{userController.email}"/>
+        <div>
+
+            <h:commandButton styleClass="signUp" type="submit" action="#{userController.signUpPost()}" value="Sign up"/>
+        </div>
+
+</h:body>
+</html>

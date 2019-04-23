@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <h:outputStylesheet library="css" name="home.css"  />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</h:head>
+<h:body>
+
+    <h:dataTable styleClass="rwd-table" value="#{projectController.getProjects()}" var="project">
+                <h:column headerText="ID" align="left" > #{project.getId()} </h:column>
+                <h:column headerText="Name" align="left" > #{project.getName()}  </h:column>
+                <h:column headerText="Description" align="left" >#{project.getDescription()}  </h:column>
+                <h:column headerText="Date Begin" align="left" > #{project.getDateBegin()}  </h:column>
+                <h:column headerText="Date End" align="left" > #{project.getDateEnd()}  </h:column>
+                <h:column headerText="Update">
+                    <h:link outcome="projectUpdate" action="#{projectController.updateProjectGet(project.getId())}">
+                    <i class="material-icons" style="font-size:40px;color:#45D09E" >border_color</i>
+                </h:link>
+                </h:column>
+                <h:column headerText="remove">
+                    <h:link outcome="#{projectController.removeProjectGet(project.getId())}">
+                        <i class="material-icons" style="font-size:40px;color:#E20338">delete_sweep</i>
+                    </h:link>
+                </h:column>
+                <h:column headerText="Tasks">
+                    <h:link href="tasks?id=${project.getId()}">
+                        <i class="material-icons" style="font-size:40px;color:#808080" >subject</i>
+                    </h:link>
+                </h:column>
+
+        <div class="button_cont" align="center"><h:link class="example_a" outcome="projectCreate">Create Project</h:link></div>
+
+        <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
+    </h:dataTable>
+
+</h:body>
+</html>
