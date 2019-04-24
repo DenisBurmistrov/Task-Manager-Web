@@ -2,6 +2,7 @@ package ru.burmistrov.taskManager.controller;
 
 
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-@URLMapping(id = "signUp", pattern = "/signUp", viewId = "/WEB-INF/views/signUp.xhtml")
+@URLMappings(mappings = {
+        @URLMapping(id = "signUp", pattern = "/signUp", viewId = "/WEB-INF/views/signUp.xhtml"),
+        @URLMapping(id = "login", pattern = "/login", viewId = "/WEB-INF/views/login.xhtml")
+})
 @Getter
 @Setter
 public class UserController {
