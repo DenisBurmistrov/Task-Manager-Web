@@ -14,17 +14,17 @@
     <div class="body"></div>
     <div class="grad"></div>
     <div class="header">
-        <div>Update<span>Project</span></div>
+        <div>Create<h:panelGroup>Task</h:panelGroup></div>
     </div>
     <div class="form">
-        <h:inputText type="text" pt:placeholder="#{projectController.project.name}" name="name"
-                     autocomplete="off" value="#{projectController.name}"/>
-        <h:inputText type="text" pt:placeholder="#{projectController.project.description}" name="description"
-                     autocomplete="off" value="#{projectController.description}"/>
-        <h:inputText type="text" pt:placeholder="#{projectController.dateUtil.parseDate(projectController.project.dateEnd)}" name="dateEnd"
-                     autocomplete="off" value="#{projectController.dateEnd}"/>
+        <h:inputText type="text" pt:placeholder="Name" name="name"
+                     autocomplete="off" value="#{taskController.name}"/>
+        <h:inputText type="text" pt:placeholder="Description" name="description"
+                     autocomplete="off" value="#{taskController.description}"/>
+        <h:inputText type="text" pt:placeholder="Date End (27.10.2021)" name="dateEnd"
+                     autocomplete="off" value="#{taskController.dateEnd}"/>
         <h:commandButton type="submit" value="Update"
-                         action="#{projectController.updateProjectPost(projectController.project)}"/>
+                         action="#{taskController.updatTaskPost()}"/>
     </div>
     </h:form>
 </h:body>

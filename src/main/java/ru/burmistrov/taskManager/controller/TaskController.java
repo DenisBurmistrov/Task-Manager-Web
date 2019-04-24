@@ -13,17 +13,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.burmistrov.taskManager.api.service.ITaskService;
 import ru.burmistrov.taskManager.entity.CustomUser;
+import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.entity.Task;
 import ru.burmistrov.taskManager.repository.ITaskRepository;
+import ru.burmistrov.taskManager.service.TaskService;
 import ru.burmistrov.taskManager.util.DateUtil;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Objects;
 
 @ManagedBean
-@Component
+@SessionScoped
 @Getter
 @Setter
 @URLMappings(mappings = {
@@ -33,35 +39,41 @@ import java.util.Objects;
 })
 public class TaskController {
 
-    @Autowired
-    private ITaskRepository taskRepository;
+    @ManagedProperty("#{taskService}")
+    private ITaskService taskService;
 
-    @Autowired
+    @ManagedProperty("#{dateUtil}")
     private DateUtil dateUtil;
 
-    @GetMapping("/task-create")
+    private String name;
+    private String description;
+    private String dateEnd;
+    private String dateBegin;
+    private String projectId;
+    private Task task;
+
+    /*@GetMapping("/task-create")
     @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String createTaskGet(@RequestParam final String id, Model model) {
         model.addAttribute("id", id);
         return "task-create";
-    }
+    }*/
 
-    @PostMapping("/task-create")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String createTaskPost(@RequestParam final String id, @RequestParam final String name,
+   /* @PostMapping("/task-create")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
+    public String createTaskPost(/*@RequestParam final String id, @RequestParam final String name,
                                     @RequestParam final String description, @RequestParam final String dateEnd,
-                                 Model model, Authentication authentication) {
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+                                 Model model, Authentication authentication*/) {
+        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
         try {
             Task task = new Task();
-            task.setProjectId(id);
+            task.setProjectId(projectId);
             task.setName(name);
             task.setDescription(description);
             task.setDateEnd(dateUtil.parseString(dateEnd));
-            task.setUserId(Objects.requireNonNull(customUser.getUser()).getId());
-            taskRepository.save(task);
-            model.addAttribute("id", id);
-            return "redirect:tasks";
+            task.setUserId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+            taskService.save(task);
+            return "tasks?faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -69,52 +81,75 @@ public class TaskController {
         return "error";
     }
 
-    @GetMapping("/tasks")
+    public String createTaskGet(){
+        name = null;
+        description = null;
+        dateEnd = null;
+        return "task-create?faces-redirect=true";
+    }
+
+   /* @GetMapping("/tasks")
     @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String listTasksGet(@RequestParam final String id, Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         model.addAttribute("tasks", taskRepository.findAllByProjectId(Objects.requireNonNull(customUser.getUser()).getId(), id));
         model.addAttribute("projectId", id);
         return "task-print";
+    }*/
+
+    /*@GetMapping("/task-remove")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
+    public String removeTaskGet(@RequestParam final String id/*, Model model, Authentication authentication*/) {
+       // CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Task task = taskService.findOne(id,"c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+               /* Objects.requireNonNull(customUser.getUser()).getId()*/);
+        taskService.delete(Objects.requireNonNull(task));
+        //model.addAttribute("id", Objects.requireNonNull(task).getProjectId());
+        return "tasks?faces-redirect=true";
     }
 
-    @GetMapping("/task-remove")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String removeTaskGet(@RequestParam final String id, Model model, Authentication authentication) {
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Task task = taskRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
-        taskRepository.delete(Objects.requireNonNull(task));
-        model.addAttribute("id", Objects.requireNonNull(task).getProjectId());
-        return "redirect:tasks";
+   /* @GetMapping("/task-update")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
+    public String updateTaskGet(@RequestParam final String id/*, Model model, Authentication authentication*/) throws ParseException {
+        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        task = taskService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+                /*Objects.requireNonNull(customUser.getUser()).getId()*/);
+        name = Objects.requireNonNull(task).getName();
+        description = task.getDescription();
+        dateEnd = dateUtil.parseDate(task.getDateEnd());
+        /*model.addAttribute("task", task);
+        model.addAttribute("id", id);*/
+        return "task-update?faces-redirect=true";
     }
 
-    @GetMapping("/task-update")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String updatetaskGet(@RequestParam final String id, Model model, Authentication authentication) {
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Task task = taskRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
-        model.addAttribute("task", task);
-        model.addAttribute("id", id);
-        return "task-update";
-    }
-
-    @PostMapping("/task-update")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String updateProjectPost(@RequestParam final String id, @RequestParam final String name, @RequestParam final String description,
-                                    @RequestParam final String dateEnd, Model model, Authentication authentication) {
+    /*@PostMapping("/task-update")
+    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
+    public String updatTaskPost(/*@RequestParam final String taskId, @RequestParam final String name, @RequestParam final String description,
+                                    @RequestParam final String dateEnd, Model model, Authentication authentication*/) {
         try {
-            CustomUser customUser = (CustomUser) authentication.getPrincipal();
-            Task task = taskRepository.findOne(id, Objects.requireNonNull(customUser.getUser()).getId());
+           // CustomUser customUser = (CustomUser) authentication.getPrincipal();
+            /*Task task = taskRepository.findOne(taskId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+                    *//*Objects.requireNonNull(customUser.getUser()).getId()*//*);*/
             Objects.requireNonNull(task).setName(name);
             task.setDescription(description);
             task.setDateEnd(dateUtil.parseString(dateEnd));
-            taskRepository.save(task);
-            model.addAttribute("id", task.getProjectId());
-            return "redirect:tasks";
+            taskService.save(task);
+           // model.addAttribute("id", task.getProjectId());
+            return "tasks?faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return "error";
     }
+
+    public List<Task> getTasks(){
+        return taskService.findAllByProjectId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7", projectId);
+    }
+
+    public String redirectToTasks(final String projectId) {
+        this.projectId = projectId;
+        return "tasks?faces-redirect=true";
+    }
+
 }
 

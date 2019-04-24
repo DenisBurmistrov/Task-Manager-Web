@@ -22,7 +22,7 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("ru.burmistrov.taskManager.repository")
 @EnableTransactionManagement
-@EnableJdbcHttpSession
+//@EnableJdbcHttpSession
 public class DataBaseConfig {
 
     @Autowired
@@ -42,7 +42,7 @@ public class DataBaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
         final LocalContainerEntityManagerFactoryBean factoryBean;
         factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPersistenceUnitName("ENTERPRISE");
+      //  factoryBean.setPersistenceUnitName("ENTERPRISE");
         factoryBean.setDataSource(dataSource);
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setPackagesToScan("ru.burmistrov.taskManager");

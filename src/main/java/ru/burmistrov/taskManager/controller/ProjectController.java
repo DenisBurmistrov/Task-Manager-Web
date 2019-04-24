@@ -14,18 +14,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.burmistrov.taskManager.api.service.IProjectService;
 import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.repository.IProjectRepository;
+import ru.burmistrov.taskManager.service.ProjectService;
 import ru.burmistrov.taskManager.util.DateUtil;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
 @ManagedBean
-@Component
+@SessionScoped
 @Getter
 @Setter
 @URLMappings(mappings = {
@@ -35,10 +39,10 @@ import java.util.Objects;
 })
 public class ProjectController {
 
-    @Autowired
-    private IProjectRepository projectRepository;
+    @ManagedProperty("#{projectService}")
+    private IProjectService projectService;
 
-    @Autowired
+    @ManagedProperty("#{dateUtil}")
     private DateUtil dateUtil;
 
     private String name;
@@ -59,12 +63,19 @@ public class ProjectController {
             project.setDateEnd(dateUtil.parseString(dateEnd));
             /*customUser.getUser()).getId()*/
             project.setUserId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
-            projectRepository.save(project);
-            return "home";
+            projectService.save(project);
+            return "home?faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return "error";
+    }
+
+    public String createProjectGet(/*Authentication authentication*/) {
+        name = null;
+        description = null;
+        dateEnd = null;
+        return "project-create?faces-redirect=true";
     }
 
    /* @GetMapping("/home")
@@ -79,19 +90,22 @@ public class ProjectController {
     //@PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String removeProjectGet(@RequestParam final String id/*, Authentication authentication*/) {
         //CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Project project = projectRepository.findOne(id,
+        Project project = projectService.findOne(id,
                 "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"/*Objects.requireNonNull(customUser.getUser()).getId()*/);
-        projectRepository.delete(project);
-        return "home";
+        projectService.delete(project);
+        return "home?faces-redirect=true";
     }
 
    /* @GetMapping("/project-update")
     @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
-    public String updateProjectGet(@RequestParam final String id/*, Model model, Authentication authentication*/) {
+    public String updateProjectGet(@RequestParam final String id/*, Model model, Authentication authentication*/) throws ParseException {
        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        project = projectRepository.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+        project = projectService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
                 /*Objects.requireNonNull(customUser.getUser()).getId()*/);
-        return "projectUpdate";
+        name = project.getName();
+        description = project.getDescription();
+        dateEnd = dateUtil.parseDate(project.getDateEnd());
+        return "project-update?faces-redirect=true";
     }
 
     /*@PostMapping("/project-update")
@@ -100,13 +114,13 @@ public class ProjectController {
                                     @RequestParam final String dateEnd, Authentication authentication*/) {
         try {
            // CustomUser customUser = (CustomUser) authentication.getPrincipal();
-            Project project = projectRepository.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
-                    /*Objects.requireNonNull(customUser.getUser()).getId()*/);
-            Objects.requireNonNull(project).setName(name);
+           /* Project project = projectService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+                    *//*Objects.requireNonNull(customUser.getUser()).getId()*//*);*/
+            project.setName(name);
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
-            projectRepository.save(project);
-            return "home";
+            projectService.save(project);
+            return "home?faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -114,6 +128,6 @@ public class ProjectController {
     }
 
     public List<Project> getProjects(/*final String id*/){
-        return projectRepository.findAll("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+        return projectService.findAll("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
     }
 }

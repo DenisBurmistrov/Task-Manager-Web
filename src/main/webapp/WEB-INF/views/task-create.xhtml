@@ -11,20 +11,21 @@
 </h:head>
 <h:body>
     <h:form>
-<div class="body"></div>
-<div class="grad"></div>
-<div class="header">
-    <div>Create<span>Project</span></div>
-</div>
-<div class="form">
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>Create<span>Task</span></div>
+    </div>
+    <div class="form">
         <h:inputText type="text" pt:placeholder="Name" name="name"
-                     autocomplete="off" value="#{projectController.name}"/>
+                     autocomplete="off" value="#{taskController.name}"/>
         <h:inputText type="text" pt:placeholder="Description" name="description"
-                     autocomplete="off" value="#{projectController.description}"/>
+                     autocomplete="off" value="#{taskController.description}"/>
         <h:inputText type="text" pt:placeholder="Date End (27.10.2021)" name="dateEnd"
-                     autocomplete="off" value="#{projectController.dateEnd}"/>
-        <h:commandButton type="submit" value="Create" action="#{projectController.createProjectPost()}"/>
-</div>
-</h:form>
+                     autocomplete="off" value="#{taskController.dateEnd}"/>
+        <h:commandButton type="submit" value="Create" action="#{taskController.createTaskPost()}"/>
+    </div>
+    </h:form>
 </h:body>
 </html>
+

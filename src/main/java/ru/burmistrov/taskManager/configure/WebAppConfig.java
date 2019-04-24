@@ -9,12 +9,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@EnableWebMvc
+//@EnableWebMvc
 @Configuration
 @ComponentScan("ru.burmistrov.taskManager")
-public class WebAppConfig implements WebMvcConfigurer {
+public class WebAppConfig {
 
-    // Позволяет видеть все ресурсы в папке jsp, такие как картинки, стили и т.п.
+    /*// Позволяет видеть все ресурсы в папке jsp, такие как картинки, стили и т.п.
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/WEB-INF/jsp/**").addResourceLocations("/jsp/");
@@ -34,5 +34,5 @@ public class WebAppConfig implements WebMvcConfigurer {
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
-    }
+    }*/
 }

@@ -11,33 +11,47 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </h:head>
 <h:body>
-
-    <h:dataTable styleClass="rwd-table" value="#{projectController.getProjects()}" var="project">
-                <h:column headerText="ID" align="left" > #{project.getId()} </h:column>
-                <h:column headerText="Name" align="left" > #{project.getName()}  </h:column>
-                <h:column headerText="Description" align="left" >#{project.getDescription()}  </h:column>
-                <h:column headerText="Date Begin" align="left" > #{project.getDateBegin()}  </h:column>
-                <h:column headerText="Date End" align="left" > #{project.getDateEnd()}  </h:column>
-                <h:column headerText="Update">
-                    <h:link outcome="projectUpdate" action="#{projectController.updateProjectGet(project.getId())}">
+<h:form>
+    <div class="button_cont" align="center">
+        <h:commandLink styleClass="example_a" action="${projectController.createProjectGet()}">Create Project</h:commandLink>
+    </div>
+    <h:dataTable styleClass="rwd-table" value="#{projectController.projects}" var="project">
+                <h:column headerText="ID" align="left" >
+                    <f:facet name="header">ID</f:facet>
+                    #{project.id}
+                </h:column>
+                <h:column align="left" >
+                    <f:facet name="header">Name</f:facet>
+                    #{project.name}  </h:column>
+                <h:column align="left" >
+                    <f:facet name="header">Description</f:facet>
+                    #{project.description}  </h:column>
+                <h:column align="left" >
+                    <f:facet name="header">Date Begin</f:facet>
+                    #{project.dateBegin}  </h:column>
+                <h:column align="left" >
+                    <f:facet name="header">Date End</f:facet>
+                    #{project.dateEnd}  </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandLink action="#{projectController.updateProjectGet(project.id)}">
                     <i class="material-icons" style="font-size:40px;color:#45D09E" >border_color</i>
-                </h:link>
+                    </h:commandLink>
                 </h:column>
-                <h:column headerText="remove">
-                    <h:link outcome="#{projectController.removeProjectGet(project.getId())}">
+                <h:column>
+                    <f:facet name="header">Remove</f:facet>
+                    <h:commandLink action="#{projectController.removeProjectGet(project.id)}">
                         <i class="material-icons" style="font-size:40px;color:#E20338">delete_sweep</i>
-                    </h:link>
+                    </h:commandLink>
                 </h:column>
-                <h:column headerText="Tasks">
-                    <h:link href="tasks?id=${project.getId()}">
+                <h:column>
+                    <f:facet name="header">Tasks</f:facet>
+                    <h:commandLink action="#{taskController.redirectToTasks(project.id)}">
                         <i class="material-icons" style="font-size:40px;color:#808080" >subject</i>
-                    </h:link>
+                    </h:commandLink>
                 </h:column>
-
-        <div class="button_cont" align="center"><h:link class="example_a" outcome="projectCreate">Create Project</h:link></div>
-
-        <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
     </h:dataTable>
-
+    <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
+</h:form>
 </h:body>
 </html>

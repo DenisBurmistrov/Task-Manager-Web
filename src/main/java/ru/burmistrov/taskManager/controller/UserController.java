@@ -11,23 +11,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.burmistrov.taskManager.api.service.IUserService;
 import ru.burmistrov.taskManager.entity.User;
 import ru.burmistrov.taskManager.entity.enumerated.Role;
 import ru.burmistrov.taskManager.repository.IUserRepository;
+import ru.burmistrov.taskManager.service.UserService;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 
-@Component
 @ManagedBean
+@SessionScoped
 @URLMapping(id = "signUp", pattern = "/signUp", viewId = "/WEB-INF/views/signUp.xhtml")
 @Getter
 @Setter
 public class UserController {
 
-    @Autowired
-    private IUserRepository userRepository;
+    @ManagedProperty("#{userService}")
+    private IUserService userService;
 
-    @Autowired
+    @ManagedProperty("#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
 
     private String login;
@@ -38,7 +42,7 @@ public class UserController {
     private String email;
 
     public String signUpPost() {
-        if (userRepository.findOneByLogin(login) == null) {
+        if (userService.findOneByLogin(login) == null) {
             User user = new User();
             user.setLogin(login);
             user.setPassword(passwordEncoder.encode(password));
@@ -47,7 +51,7 @@ public class UserController {
             user.setMiddleName(middleName);
             user.setEmail(email);
             user.setRole(Role.COMMON_USER);
-            userRepository.save(user);
+            userService.save(user);
         }
         return "login";
     }
