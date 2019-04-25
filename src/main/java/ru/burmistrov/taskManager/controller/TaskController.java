@@ -23,13 +23,14 @@ import ru.burmistrov.taskManager.util.DateUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 @Getter
 @Setter
 @URLMappings(mappings = {
@@ -45,11 +46,18 @@ public class TaskController {
     @ManagedProperty("#{dateUtil}")
     private DateUtil dateUtil;
 
+    @ManagedProperty("#{param.name}")
     private String name;
+
+    @ManagedProperty("#{param.description}")
     private String description;
+
+    @ManagedProperty("#{param.dateEnd}")
     private String dateEnd;
-    private String dateBegin;
+
+    @ManagedProperty("#{param.projectId}")
     private String projectId;
+
     private Task task;
 
     /*@GetMapping("/task-create")
@@ -73,19 +81,12 @@ public class TaskController {
             task.setDateEnd(dateUtil.parseString(dateEnd));
             task.setUserId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
             taskService.save(task);
-            return "tasks?faces-redirect=true";
+            return "tasks?projectId=" + projectId + "&faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return "error";
-    }
-
-    public String createTaskGet(){
-        name = null;
-        description = null;
-        dateEnd = null;
-        return "task-create?faces-redirect=true";
     }
 
    /* @GetMapping("/tasks")
@@ -143,13 +144,8 @@ public class TaskController {
     }
 
     public List<Task> getTasks(){
+        System.out.println(projectId);
         return taskService.findAllByProjectId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7", projectId);
     }
-
-    public String redirectToTasks(final String projectId) {
-        this.projectId = projectId;
-        return "tasks?faces-redirect=true";
-    }
-
 }
 

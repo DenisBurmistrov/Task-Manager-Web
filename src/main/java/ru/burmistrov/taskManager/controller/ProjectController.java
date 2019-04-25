@@ -15,21 +15,17 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.burmistrov.taskManager.api.service.IProjectService;
-import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.Project;
-import ru.burmistrov.taskManager.repository.IProjectRepository;
-import ru.burmistrov.taskManager.service.ProjectService;
 import ru.burmistrov.taskManager.util.DateUtil;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Objects;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 @Getter
 @Setter
 @URLMappings(mappings = {
@@ -45,10 +41,16 @@ public class ProjectController {
     @ManagedProperty("#{dateUtil}")
     private DateUtil dateUtil;
 
+    @ManagedProperty("#{param.projectId}")
+    private String projectId;
+
+    @ManagedProperty("#{param.name}")
     private String name;
 
+    @ManagedProperty("#{param.description}")
     private String description;
 
+    @ManagedProperty("#{param.dateEnd}")
     private String dateEnd;
 
     private Project project;
@@ -60,6 +62,8 @@ public class ProjectController {
             Project project = new Project();
             project.setName(name);
             project.setDescription(description);
+            System.out.println(name);
+            System.out.println(dateEnd);
             project.setDateEnd(dateUtil.parseString(dateEnd));
             /*customUser.getUser()).getId()*/
             project.setUserId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
@@ -69,13 +73,6 @@ public class ProjectController {
             e.printStackTrace();
         }
         return "error";
-    }
-
-    public String createProjectGet(/*Authentication authentication*/) {
-        name = null;
-        description = null;
-        dateEnd = null;
-        return "project-create?faces-redirect=true";
     }
 
    /* @GetMapping("/home")
@@ -96,26 +93,16 @@ public class ProjectController {
         return "home?faces-redirect=true";
     }
 
-   /* @GetMapping("/project-update")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
-    public String updateProjectGet(@RequestParam final String id/*, Model model, Authentication authentication*/) throws ParseException {
-       //CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        project = projectService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
-                /*Objects.requireNonNull(customUser.getUser()).getId()*/);
-        name = project.getName();
-        description = project.getDescription();
-        dateEnd = dateUtil.parseDate(project.getDateEnd());
-        return "project-update?faces-redirect=true";
-    }
-
     /*@PostMapping("/project-update")
     @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
-    public String updateProjectPost(@RequestParam final String id/*, @RequestParam final String name, @RequestParam final String description,
+    public String updateProjectPost(/*@RequestParam final String id*//*, @RequestParam final String name, @RequestParam final String description,
                                     @RequestParam final String dateEnd, Authentication authentication*/) {
         try {
            // CustomUser customUser = (CustomUser) authentication.getPrincipal();
            /* Project project = projectService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
                     *//*Objects.requireNonNull(customUser.getUser()).getId()*//*);*/
+            project = projectService.findOne(projectId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
+                    /*Objects.requireNonNull(customUser.getUser()).getId()*/);
             project.setName(name);
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
@@ -129,5 +116,9 @@ public class ProjectController {
 
     public List<Project> getProjects(/*final String id*/){
         return projectService.findAll("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+    }
+
+    public void setVariables(){
+        project = projectService.findOne(projectId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
     }
 }

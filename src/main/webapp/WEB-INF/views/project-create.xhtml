@@ -18,11 +18,14 @@
 </div>
 <div class="form">
         <h:inputText type="text" pt:placeholder="Name" name="name"
-                     autocomplete="off" value="#{projectController.name}"/>
+                     autocomplete="off" value="#{projectController.name}">
+        </h:inputText>
         <h:inputText type="text" pt:placeholder="Description" name="description"
-                     autocomplete="off" value="#{projectController.description}"/>
+                     autocomplete="off" value="#{projectController.description}">
+        </h:inputText>
         <h:inputText type="text" pt:placeholder="Date End (27.10.2021)" name="dateEnd"
-                     autocomplete="off" value="#{projectController.dateEnd}"/>
+                     autocomplete="off" value="#{projectController.dateEnd}">
+        </h:inputText>
         <h:commandButton type="submit" value="Create" action="#{projectController.createProjectPost()}"/>
 </div>
 </h:form>

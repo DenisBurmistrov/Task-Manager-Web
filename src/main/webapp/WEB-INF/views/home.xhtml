@@ -13,7 +13,7 @@
 <h:body>
 <h:form>
     <div class="button_cont" align="center">
-        <h:commandLink styleClass="example_a" action="${projectController.createProjectGet()}">Create Project</h:commandLink>
+        <h:commandLink styleClass="example_a" action="project-create?faces-redirect=true">Create Project</h:commandLink>
     </div>
     <h:dataTable styleClass="rwd-table" value="#{projectController.projects}" var="project">
                 <h:column headerText="ID" align="left" >
@@ -34,9 +34,10 @@
                     #{project.dateEnd}  </h:column>
                 <h:column>
                     <f:facet name="header">Update</f:facet>
-                    <h:commandLink action="#{projectController.updateProjectGet(project.id)}">
+                    <h:link outcome="project-update?faces-redirect=true" includeViewParams="true">
+                        <f:param name="projectId" value="#{project.id}"/>
                     <i class="material-icons" style="font-size:40px;color:#45D09E" >border_color</i>
-                    </h:commandLink>
+                    </h:link>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Remove</f:facet>
@@ -46,9 +47,10 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Tasks</f:facet>
-                    <h:commandLink action="#{taskController.redirectToTasks(project.id)}">
+                    <h:link outcome="tasks?faces-redirect=true" includeViewParams="true">
+                        <f:param name="projectId" value="#{project.id}"/>
                         <i class="material-icons" style="font-size:40px;color:#808080" >subject</i>
-                    </h:commandLink>
+                    </h:link>
                 </h:column>
     </h:dataTable>
     <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>

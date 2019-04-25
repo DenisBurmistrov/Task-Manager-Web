@@ -17,14 +17,21 @@
         <div>Update<span>Project</span></div>
     </div>
     <div class="form">
+        <f:metadata>
+            <f:viewParam name="#{projectController.setVariables()}"/>
+        </f:metadata>
         <h:inputText type="text" pt:placeholder="#{projectController.project.name}" name="name"
-                     autocomplete="off" value="#{projectController.name}"/>
+                     autocomplete="off" value="#{projectController.name}">
+        </h:inputText>
         <h:inputText type="text" pt:placeholder="#{projectController.project.description}" name="description"
-                     autocomplete="off" value="#{projectController.description}"/>
+                     autocomplete="off" value="#{projectController.description}">
+        </h:inputText>
         <h:inputText type="text" pt:placeholder="#{projectController.dateUtil.parseDate(projectController.project.dateEnd)}" name="dateEnd"
-                     autocomplete="off" value="#{projectController.dateEnd}"/>
-        <h:commandButton type="submit" value="Update"
-                         action="#{projectController.updateProjectPost(projectController.project)}"/>
+                     autocomplete="off" value="#{projectController.dateEnd}">
+        </h:inputText>
+        <h:commandButton type="submit" value="Update" action="#{projectController.updateProjectPost()}">
+            <f:param name="projectId" value="#{projectController.projectId}"/>
+        </h:commandButton>
     </div>
     </h:form>
 </h:body>

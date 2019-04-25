@@ -13,7 +13,10 @@
 <h:body>
     <h:form>
         <div class="button_cont" align="center">
-            <h:commandLink styleClass="example_a" action="#{taskController.createTaskGet}">Create Task</h:commandLink>
+            <h:link styleClass="example_a" outcome="task-create?faces-redirect=true" includeViewParams="true">
+                <f:param name="projectId" value="#{taskController.projectId}"/>
+                Create Task
+            </h:link>
             <br/>
         </div>
         <br/>
