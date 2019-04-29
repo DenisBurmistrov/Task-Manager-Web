@@ -36,7 +36,7 @@ import java.util.Objects;
 @URLMappings(mappings = {
         @URLMapping(id = "taskCreate", pattern = "/task-create", viewId = "/WEB-INF/views/task-create.xhtml"),
         @URLMapping(id = "taskUpdate", pattern = "/task-update", viewId = "/WEB-INF/views/task-update.xhtml"),
-        @URLMapping(id = "tasks", pattern = "/tasks", viewId = "/WEB-INF/views/tasks.xhtml")
+        @URLMapping(id = "tasks", pattern = "/tasks", viewId = "/WEB-INF/views/tasks.xhtml"),
 })
 public class TaskController {
 
@@ -57,6 +57,9 @@ public class TaskController {
 
     @ManagedProperty("#{param.projectId}")
     private String projectId;
+
+    @ManagedProperty("#{param.taskId}")
+    private String taskId;
 
     private Task task;
 
@@ -106,21 +109,7 @@ public class TaskController {
                /* Objects.requireNonNull(customUser.getUser()).getId()*/);
         taskService.delete(Objects.requireNonNull(task));
         //model.addAttribute("id", Objects.requireNonNull(task).getProjectId());
-        return "tasks?faces-redirect=true";
-    }
-
-   /* @GetMapping("/task-update")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
-    public String updateTaskGet(@RequestParam final String id/*, Model model, Authentication authentication*/) throws ParseException {
-        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        task = taskService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
-                /*Objects.requireNonNull(customUser.getUser()).getId()*/);
-        name = Objects.requireNonNull(task).getName();
-        description = task.getDescription();
-        dateEnd = dateUtil.parseDate(task.getDateEnd());
-        /*model.addAttribute("task", task);
-        model.addAttribute("id", id);*/
-        return "task-update?faces-redirect=true";
+        return "tasks?projectId=" + projectId + "&faces-redirect=true";
     }
 
     /*@PostMapping("/task-update")
@@ -131,12 +120,13 @@ public class TaskController {
            // CustomUser customUser = (CustomUser) authentication.getPrincipal();
             /*Task task = taskRepository.findOne(taskId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
                     *//*Objects.requireNonNull(customUser.getUser()).getId()*//*);*/
+            System.out.println(taskId);
             Objects.requireNonNull(task).setName(name);
             task.setDescription(description);
             task.setDateEnd(dateUtil.parseString(dateEnd));
             taskService.save(task);
            // model.addAttribute("id", task.getProjectId());
-            return "tasks?faces-redirect=true";
+            return "tasks?projectId=" + projectId + "&faces-redirect=true";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -144,8 +134,11 @@ public class TaskController {
     }
 
     public List<Task> getTasks(){
-        System.out.println(projectId);
         return taskService.findAllByProjectId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7", projectId);
+    }
+
+    public void setVariables(String taskId){
+        task = taskService.findOne(taskId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
     }
 }
 

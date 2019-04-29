@@ -21,9 +21,11 @@
         </div>
         <br/>
         <div class="button_home" align="center">
-            <h:commandLink styleClass="example_b" action="home">Projects</h:commandLink>
+            <h:link styleClass="example_b" outcome="home?faces-redirect=true" includeViewParams="true">
+                <f:param name="projectId" value="#{taskController.projectId}"/>
+                Projects
+            </h:link>
         </div>
-
         <h:dataTable styleClass="rwd-table" value="#{taskController.getTasks()}" var="task">
             <h:column align="left">
                 <f:facet name="header">ID</f:facet>
@@ -41,16 +43,20 @@
                 <f:facet name="header">Date End</f:facet>
                 #{task.getDateEnd()}  </h:column>
             <h:column headerText="Update">
-                <h:commandLink action="#{taskController.updateTaskGet(task.getId())}">
-                    <f:facet name="header">Update</f:facet>
-                    <i class="material-icons" style="font-size:40px;color:#45D09E">border_color</i>
-                </h:commandLink>
+                <f:facet name="header">Update</f:facet>
+                <h:link outcome="task-update?faces-redirect=true" includeViewParams="true">
+                    <f:param name="projectId" value="#{task.projectId}"/>
+                    <f:param name="taskId" value="#{task.id}"/>
+                    <i class="material-icons" style="font-size:40px;color:#45D09E" >border_color</i>
+                </h:link>
             </h:column>
             <h:column headerText="remove">
                 <f:facet name="header">Remove</f:facet>
-                <h:commandLink action="#{taskController.removeTaskGet(task.getId())}">
-                    <i class="material-icons" style="font-size:40px;color:#E20338">delete_sweep</i>
-                </h:commandLink>
+                <h:commandButton action="#{taskController.removeTaskGet(task.id)}" >
+                    <f:param name="projectId" value="#{task.projectId}"/>
+                    <h:outputLabel class="material-icons" style="font-size:40px;color:#E20338">
+                            delete_sweep</h:outputLabel>
+                </h:commandButton>
             </h:column>
         </h:dataTable>
         <div class="button_cont">
