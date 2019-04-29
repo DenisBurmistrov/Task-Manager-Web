@@ -6,6 +6,7 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,11 @@ import ru.burmistrov.taskManager.service.UserService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 @URLMappings(mappings = {
         @URLMapping(id = "signUp", pattern = "/signUp", viewId = "/WEB-INF/views/signUp.xhtml"),
         @URLMapping(id = "login", pattern = "/login", viewId = "/WEB-INF/views/login.xhtml")
@@ -39,14 +41,21 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     private String login;
+
     private String password;
+
     private String firstName;
+
     private String middleName;
+
     private String lastName;
+
     private String email;
 
     public String signUpPost() {
         if (userService.findOneByLogin(login) == null) {
+            System.out.println(login);
+            System.out.println(password);
             User user = new User();
             user.setLogin(login);
             user.setPassword(passwordEncoder.encode(password));
@@ -57,7 +66,7 @@ public class UserController {
             user.setRole(Role.COMMON_USER);
             userService.save(user);
         }
-        return "login";
+        return "login?faces-redirect=true";
     }
 }
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.burmistrov.taskManager.api.service.IProjectService;
+import ru.burmistrov.taskManager.entity.CustomUser;
 import ru.burmistrov.taskManager.entity.Project;
 import ru.burmistrov.taskManager.util.DateUtil;
 
@@ -23,6 +25,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @ManagedBean
 @RequestScoped
@@ -58,15 +61,15 @@ public class ProjectController {
     //@PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
     public String createProjectPost(/*Authentication authentication*/) {
         try {
-            //CustomUser customUser = (CustomUser) authentication.getPrincipal();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUser customUser = (CustomUser) authentication.getPrincipal();
             Project project = new Project();
             project.setName(name);
             project.setDescription(description);
             System.out.println(name);
             System.out.println(dateEnd);
             project.setDateEnd(dateUtil.parseString(dateEnd));
-            /*customUser.getUser()).getId()*/
-            project.setUserId("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+            project.setUserId(Objects.requireNonNull(customUser.getUser()).getId());
             projectService.save(project);
             return "home?faces-redirect=true";
         } catch (ParseException e) {
@@ -75,34 +78,21 @@ public class ProjectController {
         return "error";
     }
 
-   /* @GetMapping("/home")
-    //@PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String listProjectsGet(Model model, Authentication authentication) {
+    public String removeProjectGet(@RequestParam final String id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        model.addAttribute("projects", projectRepository.findAll(Objects.requireNonNull(customUser.getUser()).getId()));
-        return "home";
-    }*/
-
-    //@GetMapping("/project-remove")
-    //@PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")
-    public String removeProjectGet(@RequestParam final String id/*, Authentication authentication*/) {
-        //CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Project project = projectService.findOne(id,
-                "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"/*Objects.requireNonNull(customUser.getUser()).getId()*/);
+                Objects.requireNonNull(customUser.getUser()).getId());
         projectService.delete(project);
         return "home?faces-redirect=true";
     }
 
-    /*@PostMapping("/project-update")
-    @PreAuthorize("hasAuthority('COMMON_USER') or hasAuthority('ADMINISTRATOR')")*/
-    public String updateProjectPost(/*@RequestParam final String id*//*, @RequestParam final String name, @RequestParam final String description,
-                                    @RequestParam final String dateEnd, Authentication authentication*/) {
+    public String updateProjectPost() {
         try {
-           // CustomUser customUser = (CustomUser) authentication.getPrincipal();
-           /* Project project = projectService.findOne(id, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
-                    *//*Objects.requireNonNull(customUser.getUser()).getId()*//*);*/
-            project = projectService.findOne(projectId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7"
-                    /*Objects.requireNonNull(customUser.getUser()).getId()*/);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUser customUser = (CustomUser) authentication.getPrincipal();
+            project = projectService.findOne(projectId,
+                    Objects.requireNonNull(customUser.getUser()).getId());
             project.setName(name);
             project.setDescription(description);
             project.setDateEnd(dateUtil.parseString(dateEnd));
@@ -114,11 +104,15 @@ public class ProjectController {
         return "error";
     }
 
-    public List<Project> getProjects(/*final String id*/){
-        return projectService.findAll("c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+    public List<Project> getProjects(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        return projectService.findAll(Objects.requireNonNull(customUser.getUser()).getId());
     }
 
     public void setVariables(){
-        project = projectService.findOne(projectId, "c73a908f-41d7-407d-a7eb-4ce4e3d97be7");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        project = projectService.findOne(projectId, Objects.requireNonNull(customUser.getUser()).getId());
     }
 }

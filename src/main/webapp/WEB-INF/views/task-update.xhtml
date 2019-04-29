@@ -29,7 +29,7 @@
         <h:inputText type="text" pt:placeholder="#{taskController.dateUtil.parseDate(taskController.task.dateEnd)}"
                      name="dateEnd" autocomplete="off" value="#{taskController.dateEnd}">
         </h:inputText>
-        <h:commandButton type="submit" value="Update" action="#{taskController.updatTaskPost()}">
+        <h:commandButton type="submit" value="Update" action="#{taskController.updateTaskPost()}">
             <f:param name="projectId" value="#{taskController.projectId}"/>
             <f:param name="taskId" value="#{taskController.taskId}"/>
         </h:commandButton>

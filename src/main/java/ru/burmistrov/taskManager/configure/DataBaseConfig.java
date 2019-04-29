@@ -22,7 +22,7 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("ru.burmistrov.taskManager.repository")
 @EnableTransactionManagement
-//@EnableJdbcHttpSession
+@EnableJdbcHttpSession
 public class DataBaseConfig {
 
     @Autowired

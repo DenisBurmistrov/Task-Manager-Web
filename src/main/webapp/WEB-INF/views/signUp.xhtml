@@ -10,41 +10,29 @@
     <h:outputStylesheet library="css" name="login.css"  />
 </h:head>
 <h:body>
-    <div id="container">
-        <h:form styleClass="signup">
-            <h:inputText type="text" styleClass="textIn" pt:placeholder="Login" value="#{userController.login}"/>
-            <h:inputText type="text" styleClass="textIn" pt:placeholder="Password" value="#{userSignInController.password}"/>
-            <h:commandButton value="Submit" styleClass="submit" action="#{userSignInController.signIn}"/>
-        </h:form>
+<h:form id="registerForm">
+    <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> SignUp</h2>
+    <span class="entypo-user inputUserIcon">
+     <i class="fa fa-user"></i>
+   </span>
+    <h:inputText type="text" class="user" name="login" pt:placeholder="username"
+                 autocomplete="off" value="#{userController.login}"/>
+    <span class="entypo-key inputPassIcon">
+     <i class="fa fa-key"></i>
+   </span>
+    <h:inputText type="password" styleClass="pass" name="password"
+                 pt:placeholder="password" autocomplete="off" value="#{userController.password}"/>
+    <h:inputText type="text" styleClass="pass" name="firstName" pt:placeholder="First name"
+                 autocomplete="off" value="#{userController.firstName}"/>
+    <h:inputText type="text" styleClass="pass" name="lastName" pt:placeholder="Last Name"
+                 autocomplete="off" value="#{userController.lastName}"/>
+    <h:inputText type="text" styleClass="pass" name="middleName" pt:placeholder="Middle Name"
+                 autocomplete="off" value="#{userController.middleName}"/>
+    <h:inputText type="text" styleClass="pass" name="email" pt:placeholder="Email"
+                 autocomplete="off" value="#{userController.email}"/>
+    <div>
+        <h:commandButton styleClass="signUp" action="#{userController.signUpPost()}" value="Sign up"/>
     </div>
-
-        <h2>
-            <h:panelGroup styleClass="entypo-login">
-                <h:outputText styleClass="fa fa-sign-in"></h:outputText>
-            </h:panelGroup> SignUp
-        </h2>
-        <h:panelGroup class="entypo-user inputUserIcon">
-            <h:outputText class="fa fa-user"></h:outputText>
-        </h:panelGroup>
-        <h:inputText type="text" class="user" name="login" placeholder="username"
-                     autocomplete="off" value="#{userController.login}"/>
-        <h:panelGroup class="entypo-key inputPassIcon">
-            <h:outputText class="fa fa-key"></h:outputText>
-        </h:panelGroup>
-        <h:inputText type="password" class="pass" name="password"
-                     placeholder="password" autocomplete="off" value="#{userController.password}"/>
-        <h:inputText type="text" class="pass" name="firstName" placeholder="First name"
-                     autocomplete="off" value="#{userController.firstName}"/>
-        <h:inputText type="text" class="pass" name="lastName" placeholder="Last Name"
-                     autocomplete="off" value="#{userController.lastName}"/>
-        <h:inputText type="text" class="pass" name="middleName" placeholder="Middle Name"
-                     autocomplete="off" value="#{userController.middleName}"/>
-        <h:inputText type="text" class="pass" name="email" placeholder="Email"
-                     autocomplete="off" value="#{userController.email}"/>
-        <div>
-
-            <h:commandButton styleClass="signUp" type="submit" action="#{userController.signUpPost()}" value="Sign up"/>
-        </div>
-
+    </h:form>
 </h:body>
 </html>
