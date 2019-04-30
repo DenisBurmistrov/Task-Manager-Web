@@ -52,16 +52,14 @@
             </h:column>
             <h:column headerText="remove">
                 <f:facet name="header">Remove</f:facet>
-                <h:commandButton action="#{taskController.removeTaskGet(task.id)}" >
+                <h:commandButton action="#{taskController.removeTaskGet(task.id)}">
                     <f:param name="projectId" value="#{task.projectId}"/>
-                    <h:outputLabel class="material-icons" style="font-size:40px;color:#E20338">
-                            delete_sweep</h:outputLabel>
+                    <span class="material-icons" style="font-size:40px;color:#E20338">
+                            delete_sweep</span>
                 </h:commandButton>
             </h:column>
         </h:dataTable>
-        <div class="button_cont">
-            <h:commandLink styleClass="logout_button" action="logout">logout</h:commandLink>
-        </div>
+        <div class="button_cont" ><a class="logout_button" href="logout">logout</a></div>
     </h:form>
 </h:body>
 </html>
